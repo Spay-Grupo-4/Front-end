@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Leads</title>
+    <link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+    <div class="container">
+        <header class="header" id="mainHeader">
+                        <button id="backBtn" class="btn-back-arrow" style="display:none;" onclick="goBack()" aria-label="Voltar">
+                                <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="36" y1="22" x2="10" y2="22" stroke="#111" stroke-width="4.5" stroke-linecap="round"/>
+                                    <polyline points="17,15 10,22 17,29" fill="none" stroke="#111" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                        </button>
+            <h1 id="mainTitle">Sistema de Leads</h1>
+            <p id="mainSubtitle">Escolha uma opção para continuar</p>
+        </header>
+
+        <!-- Nova tela inicial -->
+        <div id="homeScreen" class="initial-screen">
+            <div class="options-grid">
+                <div class="option-card" onclick="showLeadOptions()">
+                    <div class="option-icon">🏢</div>
+                    <h2>Cadastro de Novos Leads</h2>
+                    <p>Adicionar novos leads manualmente ou via CSV</p>
+                    <button class="btn-primary">Cadastrar Leads</button>
+                </div>
+                <div class="option-card">
+                    <div class="option-icon">📊</div>
+                    <h2>Relatórios dos Leads</h2>
+                    <p>Solicite relatórios consolidados</p>
+                    <button class="btn-primary" disabled>Em breve</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tela antiga de seleção de cadastro/upload/relatório -->
+        <div id="initialScreen" class="initial-screen hidden">
+            <div class="options-grid">
+                <div class="option-card" onclick="showManualForm()">
+                    <div class="option-icon">📝</div>
+                    <h2>Cadastro Manual</h2>
+                    <p>Preencha o formulário em etapas</p>
+                    <button class="btn-primary">Começar</button>
+                </div>
+                <div class="option-card" onclick="showCsvUpload()">
+                    <div class="option-icon">📄</div>
+                    <h2>Upload de CSV</h2>
+                    <p>Envie um arquivo com múltiplos leads</p>
+                    <button class="btn-primary">Enviar arquivo</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="manualForm" class="manual-form hidden">
+            <div class="stepper">
+                <div class="step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Identificação</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Endereço</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Informações Adicionais</div>
+                </div>
+            </div>
+
+            <form id="leadForm" class="form-container">
+                <div class="form-step active" data-step="1">
+                    <h2>Identificação da Empresa</h2>
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="cnpj">CNPJ *</label>
+                            <input type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Tipo *</label>
+                            <input type="text" id="type" name="type" placeholder="Tipo da empresa" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status *</label>
+                            <select id="status" name="status" required>
+                                <option value="">Selecione...</option>
+                                <option value="Ativa">Ativa</option>
+                                <option value="Baixada">Baixada</option>
+                                <option value="Suspensa">Suspensa</option>
+                                <option value="Inapta">Inapta</option>
+                                <option value="Nula">Nula</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="razaoSocial">Razão Social *</label>
+                            <input type="text" id="razaoSocial" name="razaoSocial" placeholder="Razão social da empresa" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="nomeComercial">Nome Comercial *</label>
+                            <input type="text" id="nomeComercial" name="nomeComercial" placeholder="Nome fantasia" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="telefone">Telefone *</label>
+                            <input type="tel" id="telefone" name="telefone" placeholder="(00) 0000-0000" required>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="backToInitial()">Cancelar</button>
+                        <button type="button" class="btn-primary" onclick="nextStep()">Próximo</button>
+                    </div>
+                </div>
+
+                <div class="form-step" data-step="2">
+                    <h2>Endereço</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="cep">CEP *</label>
+                            <input type="text" id="cep" name="cep" placeholder="00000-000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="uf">UF *</label>
+                            <input type="text" id="uf" name="uf" placeholder="SP" maxlength="2" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="municipio">Município *</label>
+                            <input type="text" id="municipio" name="municipio" placeholder="Cidade" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bairro">Bairro *</label>
+                            <input type="text" id="bairro" name="bairro" placeholder="Bairro" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="logradouro">Logradouro *</label>
+                            <input type="text" id="logradouro" name="logradouro" placeholder="Rua, Avenida..." required>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="complemento">Complemento</label>
+                            <input type="text" id="complemento" name="complemento" placeholder="Sala, Andar...">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="prevStep()">Voltar</button>
+                        <button type="button" class="btn-primary" onclick="nextStep()">Próximo</button>
+                    </div>
+                </div>
+
+                <div class="form-step" data-step="3">
+                    <h2>Informações Adicionais</h2>
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="patrimonioLiquido">Patrimônio Líquido</label>
+                            <input type="text" id="patrimonioLiquido" name="patrimonioLiquido" placeholder="R$ 0,00">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="segmentoComercial">Segmento Comercial</label>
+                            <input type="text" id="segmentoComercial" name="segmentoComercial" placeholder="Segmento estimado">
+                        </div>
+                        <div class="form-group">
+                            <label for="dataInicioSituacao">Data Início Situação</label>
+                            <input type="date" id="dataInicioSituacao" name="dataInicioSituacao">
+                        </div>
+                        <div class="form-group">
+                            <label for="dataRegistro">Data de Registro</label>
+                            <input type="date" id="dataRegistro" name="dataRegistro">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="prevStep()">Voltar</button>
+                        <button type="button" class="btn-success" onclick="submitForm()">Cadastrar Lead</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="csvUpload" class="csv-upload hidden">
+            <h2>Upload de Arquivo CSV</h2>
+            <p class="upload-description">
+                Envie um arquivo CSV com os dados dos leads
+                <button type="button" class="btn-primary btn-small" onclick="toggleCsvFormatCard()">Ver formato esperado do CSV</button>
+            </p>
+
+            <div id="csvFormatCard" class="csv-format-card hidden">
+                <div class="csv-format-header">
+                    <h3>Formato esperado do arquivo CSV</h3>
+                    <button type="button" class="btn-icon" onclick="toggleCsvFormatCard()">✕</button>
+                </div>
+                <p class="csv-format-text">
+                    Estrutura mínima do arquivo. A primeira linha deve conter o cabeçalho abaixo
+                    (nomes exatamente iguais; a ordem das colunas pode variar):
+                </p>
+                <div class="csv-format-body">
+                    <table class="csv-format-table">
+                        <thead>
+                            <tr>
+                                <th>cnpj</th>
+                                <th>type</th>
+                                <th>nome_social</th>
+                                <th>nome_comercial</th>
+                                <th>status</th>
+                                <th>telefone</th>
+                                <th>cep</th>
+                                <th>uf</th>
+                                <th>municipio</th>
+                                <th>bairro</th>
+                                <th>complemento</th>
+                                <th>logradouro</th>
+                                <th>valor_patrimonio_liquido</th>
+                                <th>data_inicio_situacao</th>
+                                <th>data_registro</th>
+                                <th>segmento_comercial_estimado</th>
+                                <th>elegibilidade_lead_maquininha</th>
+                                <th>porte_lead_estimado</th>
+                                <th>potencial_venda_maquininha</th>
+                                <th>faixa_volume_mensal_estimada</th>
+                                <th>canal_abordagem_sugerido</th>
+                                <th>data_ingestao</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+            <div class="drop-zone" id="dropZone">
+                <div class="drop-icon">📁</div>
+                <p class="drop-text">Arraste e solte o arquivo aqui</p>
+                <p class="drop-subtext">ou</p>
+                <label for="fileInput" class="btn-primary file-input-label">Selecionar Arquivo</label>
+                <input type="file" id="fileInput" accept=".csv" class="file-input">
+                <p class="drop-hint">Apenas arquivos .csv</p>
+            </div>
+
+            <div id="fileInfo" class="file-info hidden">
+                <div class="file-details">
+                    <div class="file-icon">📄</div>
+                    <div class="file-data">
+                        <p class="file-name" id="fileName"></p>
+                        <p class="file-size" id="fileSize"></p>
+                    </div>
+                    <button class="btn-remove" onclick="removeFile()">✕</button>
+                </div>
+            </div>
+
+            <div class="upload-actions">
+                <button type="button" class="btn-secondary" onclick="backToInitial()">Cancelar</button>
+                <button type="button" class="btn-success" id="uploadBtn" onclick="uploadFile()" disabled>Enviar Arquivo</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-icon success">✓</div>
+            <h3 id="modalTitle">Sucesso!</h3>
+            <p id="modalMessage">Lead cadastrado com sucesso!</p>
+            <button type="button" class="btn-primary" onclick="closeModal()">OK</button>
+        </div>
+    </div>
+    <style>
+    .btn-back-arrow {
+        position: absolute;
+        left: 24px;
+        top: 32px;
+        background: transparent;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: filter 0.2s;
+    }
+    .btn-back-arrow:focus {
+        outline: none;
+    }
+    .btn-back-arrow:hover svg {
+        filter: brightness(0) saturate(100%) contrast(150%);
+    }
+    @media (max-width: 600px) {
+        .btn-back-arrow {
+            left: 8px;
+            top: 12px;
+        }
+        .btn-back-arrow svg {
+            width: 32px;
+            height: 32px;
+        }
+    }
+    </style>
+    <script src="main.js"></script>
+    <script>
+    // Função para mostrar a tela de opções de cadastro/upload
+    function showLeadOptions() {
+        document.getElementById('homeScreen').classList.add('hidden');
+        document.getElementById('initialScreen').classList.remove('hidden');
+        // Troca o título e subtítulo para o contexto de cadastro
+        document.getElementById('mainTitle').textContent = 'Cadastro de Novos Leads';
+        document.getElementById('mainSubtitle').textContent = 'Escolha a forma de cadastro que preferir';
+        // Mostra botão de voltar
+        document.getElementById('backBtn').style.display = '';
+        // Salva estado para navegação
+        window._currentScreen = 'initialScreen';
+    }
+
+    // Função global para voltar
+    function goBack() {
+        // Se estiver na tela de seleção de cadastro/upload, volta para home
+        if (window._currentScreen === 'initialScreen') {
+            document.getElementById('initialScreen').classList.add('hidden');
+            document.getElementById('homeScreen').classList.remove('hidden');
+            document.getElementById('mainTitle').textContent = 'Sistema de Leads';
+            document.getElementById('mainSubtitle').textContent = 'Escolha uma opção para continuar';
+            document.getElementById('backBtn').style.display = 'none';
+            window._currentScreen = 'homeScreen';
+        } else if (window._currentScreen === 'manualForm') {
+            // Se estiver no formulário manual, volta para seleção
+            document.getElementById('manualForm').classList.add('hidden');
+            document.getElementById('initialScreen').classList.remove('hidden');
+            document.getElementById('mainTitle').textContent = 'Cadastro de Novos Leads';
+            document.getElementById('mainSubtitle').textContent = 'Escolha a forma de cadastro que preferir';
+            window._currentScreen = 'initialScreen';
+        } else if (window._currentScreen === 'csvUpload') {
+            // Se estiver no upload de CSV, volta para seleção
+            document.getElementById('csvUpload').classList.add('hidden');
+            document.getElementById('initialScreen').classList.remove('hidden');
+            document.getElementById('mainTitle').textContent = 'Cadastro de Novos Leads';
+            document.getElementById('mainSubtitle').textContent = 'Escolha a forma de cadastro que preferir';
+            window._currentScreen = 'initialScreen';
+        }
+    }
+
+    // Ajusta navegação dos fluxos já existentes para atualizar o estado do botão de voltar
+    // (Essas funções já existem no main.js, mas sobrescrevemos aqui para garantir o estado)
+    const _oldShowManualForm = window.showManualForm;
+    window.showManualForm = function() {
+        document.getElementById('initialScreen').classList.add('hidden');
+        document.getElementById('manualForm').classList.remove('hidden');
+        document.getElementById('backBtn').style.display = '';
+        window._currentScreen = 'manualForm';
+        document.getElementById('mainTitle').textContent = 'Cadastro de Novos Leads';
+        document.getElementById('mainSubtitle').textContent = 'Preencha o formulário em etapas';
+    };
+    const _oldShowCsvUpload = window.showCsvUpload;
+    window.showCsvUpload = function() {
+        document.getElementById('initialScreen').classList.add('hidden');
+        document.getElementById('csvUpload').classList.remove('hidden');
+        document.getElementById('backBtn').style.display = '';
+        window._currentScreen = 'csvUpload';
+        document.getElementById('mainTitle').textContent = 'Cadastro de Novos Leads';
+        document.getElementById('mainSubtitle').textContent = 'Upload de Arquivo CSV';
+    };
+    // Ao voltar para home, esconde o botão
+    window._currentScreen = 'homeScreen';
+    document.getElementById('backBtn').style.display = 'none';
+    </script>
+</body>
+</html>
