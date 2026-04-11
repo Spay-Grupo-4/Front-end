@@ -8,6 +8,7 @@ function showManualForm() {
   document.getElementById('manualForm').classList.remove('hidden');
   currentStep = 1;
   updateStepper();
+  updateFormStep();
 }
 
 function showCsvUpload() {
@@ -15,17 +16,14 @@ function showCsvUpload() {
   document.getElementById('csvUpload').classList.remove('hidden');
 }
 
-function toggleCsvFormatCard() {
-  const card = document.getElementById('csvFormatCard');
-  if (!card) return;
-  card.classList.toggle('hidden');
-}
-
 function backToInitial() {
   document.getElementById('manualForm').classList.add('hidden');
   document.getElementById('csvUpload').classList.add('hidden');
   document.getElementById('initialScreen').classList.remove('hidden');
   document.getElementById('leadForm').reset();
+  currentStep = 1;
+  updateStepper();
+  updateFormStep();
   selectedFile = null;
   document.getElementById('fileInfo').classList.add('hidden');
   document.getElementById('uploadBtn').disabled = true;
@@ -106,7 +104,6 @@ async function submitForm() {
   const payload = {
     cnpj: document.getElementById('cnpj').value,
     type: document.getElementById('type').value,
-    status: document.getElementById('status').value,
     nomeSocial: document.getElementById('razaoSocial').value,
     nomeComercial: document.getElementById('nomeComercial').value,
     telefone: document.getElementById('telefone').value,
@@ -192,14 +189,14 @@ if (dropZone && fileInput) {
 }
 
 function handleFileSelect(file) {
-  if (file && file.name.endsWith('.csv')) {
+  if (file && file.name.toLowerCase().endsWith('.pdf')) {
     selectedFile = file;
     document.getElementById('fileName').textContent = file.name;
     document.getElementById('fileSize').textContent = formatFileSize(file.size);
     document.getElementById('fileInfo').classList.remove('hidden');
     document.getElementById('uploadBtn').disabled = false;
   } else {
-    showModal('Erro', 'Por favor, selecione um arquivo CSV válido.', 'error');
+    showModal('Erro', 'Por favor, selecione um arquivo PDF válido.', 'error');
   }
 }
 
@@ -229,7 +226,7 @@ async function uploadFile() {
   formData.append('file', selectedFile);
 
   try {
-    const response = await fetch(`${API_BASE_URL}/upload_csv`, {
+    const response = await fetch(`${API_BASE_URL}/upload_pdf`, {
       method: 'POST',
       body: formData,
     });
@@ -246,7 +243,7 @@ async function uploadFile() {
     if (!response.ok || !result.success) {
       const errorMsg = (result && result.message)
         ? result.message
-        : 'Falha ao enviar CSV para o servidor.';
+        : 'Falha ao enviar PDF para o servidor.';
       showModal('Erro', errorMsg, 'error');
       if (uploadBtn) uploadBtn.disabled = false;
       return;
@@ -254,14 +251,14 @@ async function uploadFile() {
 
     const message = (result && result.message)
       ? result.message
-      : `Arquivo "${selectedFile.name}" enviado e Parquet atualizado com sucesso!`;
+      : `Arquivo "${selectedFile.name}" enviado com sucesso para a bronze!`;
 
     showModal('Sucesso!', message, 'success');
     setTimeout(() => {
       backToInitial();
     }, 2000);
   } catch (error) {
-    console.error('Erro ao enviar CSV para a API:', error);
+    console.error('Erro ao enviar PDF para a API:', error);
     showModal(
       'Erro',
       'Não foi possível conectar ao servidor. Verifique se a API está rodando.',

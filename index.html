@@ -25,7 +25,7 @@
                 <div class="option-card" onclick="showLeadOptions()">
                     <div class="option-icon">🏢</div>
                     <h2>Cadastro de Novos Leads</h2>
-                    <p>Adicionar novos leads manualmente ou via CSV</p>
+                    <p>Adicionar novos leads manualmente ou via PDF</p>
                     <button class="btn-primary">Cadastrar Leads</button>
                 </div>
                 <div class="option-card">
@@ -48,9 +48,9 @@
                 </div>
                 <div class="option-card" onclick="showCsvUpload()">
                     <div class="option-icon">📄</div>
-                    <h2>Upload de CSV</h2>
-                    <p>Envie um arquivo com múltiplos leads</p>
-                    <button class="btn-primary">Enviar arquivo</button>
+                    <h2>Upload de PDF</h2>
+                    <p>Envie um PDF preenchido manualmente</p>
+                    <button class="btn-primary">Enviar PDF</button>
                 </div>
             </div>
         </div>
@@ -81,20 +81,9 @@
                             <label for="cnpj">CNPJ *</label>
                             <input type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group type-field">
                             <label for="type">Tipo *</label>
                             <input type="text" id="type" name="type" placeholder="Tipo da empresa" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="status">Status *</label>
-                            <select id="status" name="status" required>
-                                <option value="">Selecione...</option>
-                                <option value="Ativa">Ativa</option>
-                                <option value="Baixada">Baixada</option>
-                                <option value="Suspensa">Suspensa</option>
-                                <option value="Inapta">Inapta</option>
-                                <option value="Nula">Nula</option>
-                            </select>
                         </div>
                         <div class="form-group full-width">
                             <label for="razaoSocial">Razão Social *</label>
@@ -178,20 +167,19 @@
         </div>
 
         <div id="csvUpload" class="csv-upload hidden">
-            <h2>Upload de Arquivo CSV</h2>
+            <h2>Upload de Arquivo PDF</h2>
             <p class="upload-description">
-                Envie um arquivo CSV com os dados dos leads
-                <button type="button" class="btn-primary btn-small" onclick="toggleCsvFormatCard()">Ver formato esperado do CSV</button>
+                Envie um arquivo PDF para armazenamento na bronze
+                <button type="button" class="btn-primary btn-small" onclick="togglePdfFieldsCard()">Ver campos esperados no PDF</button>
             </p>
 
-            <div id="csvFormatCard" class="csv-format-card hidden">
+            <div id="pdfFieldsCard" class="csv-format-card hidden">
                 <div class="csv-format-header">
-                    <h3>Formato esperado do arquivo CSV</h3>
-                    <button type="button" class="btn-icon" onclick="toggleCsvFormatCard()">✕</button>
+                    <h3>Campos esperados no PDF</h3>
+                    <button type="button" class="btn-icon" onclick="togglePdfFieldsCard()">✕</button>
                 </div>
                 <p class="csv-format-text">
-                    Estrutura mínima do arquivo. A primeira linha deve conter o cabeçalho abaixo
-                    (nomes exatamente iguais; a ordem das colunas pode variar):
+                    O PDF preenchido manualmente deve conter todos os campos abaixo, seguindo o mesmo padrao do dataset atual:
                 </p>
                 <div class="csv-format-body">
                     <table class="csv-format-table">
@@ -218,7 +206,6 @@
                                 <th>potencial_venda_maquininha</th>
                                 <th>faixa_volume_mensal_estimada</th>
                                 <th>canal_abordagem_sugerido</th>
-                                <th>data_ingestao</th>
                             </tr>
                         </thead>
                     </table>
@@ -230,8 +217,8 @@
                 <p class="drop-text">Arraste e solte o arquivo aqui</p>
                 <p class="drop-subtext">ou</p>
                 <label for="fileInput" class="btn-primary file-input-label">Selecionar Arquivo</label>
-                <input type="file" id="fileInput" accept=".csv" class="file-input">
-                <p class="drop-hint">Apenas arquivos .csv</p>
+                <input type="file" id="fileInput" accept=".pdf,application/pdf" class="file-input">
+                <p class="drop-hint">Apenas arquivos .pdf</p>
             </div>
 
             <div id="fileInfo" class="file-info hidden">
@@ -247,7 +234,7 @@
 
             <div class="upload-actions">
                 <button type="button" class="btn-secondary" onclick="backToInitial()">Cancelar</button>
-                <button type="button" class="btn-success" id="uploadBtn" onclick="uploadFile()" disabled>Enviar Arquivo</button>
+                <button type="button" class="btn-success" id="uploadBtn" onclick="uploadFile()" disabled>Enviar PDF</button>
             </div>
         </div>
     </div>
@@ -307,6 +294,12 @@
         window._currentScreen = 'initialScreen';
     }
 
+    function togglePdfFieldsCard() {
+        const card = document.getElementById('pdfFieldsCard');
+        if (!card) return;
+        card.classList.toggle('hidden');
+    }
+
     // Função global para voltar
     function goBack() {
         // Se estiver na tela de seleção de cadastro/upload, volta para home
@@ -325,7 +318,7 @@
             document.getElementById('mainSubtitle').textContent = 'Escolha a forma de cadastro que preferir';
             window._currentScreen = 'initialScreen';
         } else if (window._currentScreen === 'csvUpload') {
-            // Se estiver no upload de CSV, volta para seleção
+            // Se estiver no upload de PDF, volta para seleção
             document.getElementById('csvUpload').classList.add('hidden');
             document.getElementById('initialScreen').classList.remove('hidden');
             document.getElementById('mainTitle').textContent = 'Cadastro de Novos Leads';
@@ -352,7 +345,7 @@
         document.getElementById('backBtn').style.display = '';
         window._currentScreen = 'csvUpload';
         document.getElementById('mainTitle').textContent = 'Cadastro de Novos Leads';
-        document.getElementById('mainSubtitle').textContent = 'Upload de Arquivo CSV';
+        document.getElementById('mainSubtitle').textContent = 'Upload de Arquivo PDF';
     };
     // Ao voltar para home, esconde o botão
     window._currentScreen = 'homeScreen';
