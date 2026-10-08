@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Multi-step Lead Registration Form</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#e9f0ff",
+                        "outline-variant": "#c3c6d7",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-container-low": "#f3f4f5",
+                        "warning-amber": "#F59E0B",
+                        "surface-dim": "#d9dadb",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#dbe1ff",
+                        "primary": "#004ac6",
+                        "secondary": "#545f73",
+                        "on-primary-fixed": "#00174b",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#b4c5ff",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#586377",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-primary-container": "#eeefff",
+                        "on-surface-variant": "#434655",
+                        "outline": "#737686",
+                        "surface-tint": "#0053db",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#5e6e85",
+                        "success-green": "#10B981",
+                        "primary-container": "#2563eb",
+                        "error-red": "#EF4444",
+                        "tertiary": "#46566c",
+                        "surface-bright": "#f8f9fa",
+                        "inverse-surface": "#2e3132",
+                        "surface-variant": "#e1e3e4",
+                        "surface-container": "#edeeef",
+                        "background": "#f8f9fa",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "surface": "#f8f9fa",
+                        "error": "#ba1a1a",
+                        "on-surface": "#191c1d",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "border-subtle": "#E2E8F0",
+                        "tertiary-fixed": "#d3e4fe",
+                        "on-background": "#191c1d",
+                        "secondary-container": "#d5e0f8",
+                        "inverse-on-surface": "#f0f1f2",
+                        "secondary-fixed": "#d8e3fb",
+                        "surface-card": "#FFFFFF",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "on-secondary-fixed": "#111c2d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "margin-desktop": "32px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "unit": "4px",
+                        "stack-lg": "24px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "title-md": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .step-content { display: none; }
+        .step-content.active { display: block; }
+        .input-field:focus-within {
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+            border-color: #2563eb;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-screen flex flex-col z-40 hidden lg:flex bg-secondary dark:bg-on-secondary-fixed shadow-lg w-64 docked left-0 h-full">
+<div class="p-6 border-b border-white/10 flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest mb-4 overflow-hidden flex items-center justify-center">
+<img alt="CRM Admin" class="object-cover w-full h-full" data-alt="A professional headshot of an executive CRM administrator in a modern office environment. High-key lighting, corporate aesthetic, confident and approachable expression. Wearing a tailored navy blue blazer. 8k resolution, photorealistic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUF3wKn3jDSZVfN0BLqkdji9iOR7RNZdPZ1BHa_P5eOg1U8Wk-UwoyKQYB1bvX9lX-RIozu9bjKFC-GMYwIulBqDLIn0I7rJ8gOSgu-dK1IqSl1tWafLrq1UYgsPMtVWui9c-M2y7t90xUw31rkpM5LUwQ8WA5Z8AHfH7vP1yyp8O70GL6NWBygVvEUj3-pwUMd1e8bALJ5__G9g8RyBY9T-GpM-RX-lLDeIONBN2id1QJRqz_90bIgA"/>
+</div>
+<h2 class="text-title-md font-title-md text-on-primary mb-1">Executive Portal</h2>
+<p class="text-label-sm font-label-sm text-secondary-fixed-dim">Enterprise Lead Management</p>
+</div>
+<div class="p-4">
+<button class="w-full bg-primary-container text-on-primary py-2 px-4 rounded-lg font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary-fixed-variant transition-colors shadow-sm">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">add</span>
+                New Lead
+            </button>
+</div>
+<div class="flex-1 overflow-y-auto py-2">
+<a class="text-secondary-fixed-dim hover:text-on-primary p-4 flex items-center gap-4 hover:bg-secondary-container/10 transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-secondary-fixed-dim hover:text-on-primary p-4 flex items-center gap-4 hover:bg-secondary-container/10 transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                Leads
+            </a>
+<a class="bg-primary-container text-on-primary-container border-l-4 border-primary-fixed p-4 flex items-center gap-4 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_add" style="font-variation-settings: 'FILL' 1;">assignment_add</span>
+                Multi-step Registration
+            </a>
+<a class="text-secondary-fixed-dim hover:text-on-primary p-4 flex items-center gap-4 hover:bg-secondary-container/10 transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="picture_as_pdf">picture_as_pdf</span>
+                Documents
+            </a>
+<a class="text-secondary-fixed-dim hover:text-on-primary p-4 flex items-center gap-4 hover:bg-secondary-container/10 transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+                CRM Assistant
+            </a>
+</div>
+<div class="mt-auto border-t border-white/10 py-2">
+<a class="text-secondary-fixed-dim hover:text-on-primary p-4 flex items-center gap-4 hover:bg-secondary-container/10 transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Log Out
+            </a>
+</div>
+</nav>
+<!-- TopNavBar (Mobile Only) -->
+<header class="lg:hidden flex justify-between items-center w-full px-margin-mobile h-16 sticky top-0 z-50 bg-surface-container-lowest shadow-sm border-b border-border-subtle">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">domain</span>
+<h1 class="text-title-md font-title-md text-primary font-bold tracking-tight">LeadPro CRM</h1>
+</div>
+<button class="p-2 text-on-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 lg:ml-64 w-full px-margin-mobile lg:px-margin-desktop py-8 md:py-12 flex flex-col items-center">
+<div class="w-full max-w-4xl flex flex-col gap-8">
+<!-- Header Section -->
+<div class="flex flex-col gap-2 border-b border-border-subtle pb-6">
+<h1 class="font-headline-xl text-headline-xl text-on-background">Cadastro Manual</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Preencha o formulário em etapas para registrar um novo lead.</p>
+</div>
+<!-- Registration Card -->
+<div class="bg-surface-card rounded-xl shadow-[0px_1px_3px_rgba(0,0,0,0.05),0px_10px_15px_-3px_rgba(0,0,0,0.05)] border border-border-subtle overflow-hidden">
+<!-- Stepper -->
+<div class="bg-surface-container-lowest px-6 py-6 border-b border-border-subtle">
+<div class="flex items-center justify-between relative">
+<!-- Progress Line -->
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-surface-variant rounded-full z-0 hidden sm:block"></div>
+<div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-primary rounded-full z-0 transition-all duration-300 w-[15%] hidden sm:block" id="progress-bar"></div>
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-2 relative z-10 w-1/3 sm:w-auto">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md text-label-md font-bold shadow-sm ring-4 ring-surface-card step-indicator transition-colors" data-step="1">1</div>
+<span class="font-label-md text-label-md text-on-surface text-center whitespace-nowrap hidden sm:block">Identificação</span>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-2 relative z-10 w-1/3 sm:w-auto">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-label-md text-label-md font-bold ring-4 ring-surface-card step-indicator transition-colors" data-step="2">2</div>
+<span class="font-label-md text-label-md text-on-surface-variant text-center whitespace-nowrap hidden sm:block">Endereço</span>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center gap-2 relative z-10 w-1/3 sm:w-auto">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-label-md text-label-md font-bold ring-4 ring-surface-card step-indicator transition-colors" data-step="3">3</div>
+<span class="font-label-md text-label-md text-on-surface-variant text-center whitespace-nowrap hidden sm:block">Informações Adicionais</span>
+</div>
+</div>
+</div>
+<!-- Form Area -->
+<div class="p-6 md:p-8 bg-surface-card relative overflow-hidden">
+<!-- Subtle background texture -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/5 to-transparent rounded-bl-full pointer-events-none -z-10"></div>
+<form id="lead-form" onsubmit="event.preventDefault(); showSuccess();">
+<!-- Step 1: Identificação -->
+<div class="step-content active animate-[fadeIn_0.3s_ease-out]" id="step-1">
+<h2 class="font-title-md text-title-md text-on-background mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">corporate_fare</span>
+                                Identificação da Empresa
+                            </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg">
+<div class="flex flex-col gap-1 input-field">
+<label class="font-label-md text-label-md text-on-surface-variant">CNPJ *</label>
+<input class="border border-border-subtle rounded-lg px-3 py-2 bg-surface-lowest text-body-md text-on-surface focus:outline-none transition-all" placeholder="00.000.000/0000-00" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1 input-field">
+<label class="font-label-md text-label-md text-on-surface-variant">Tipo *</label>
+<select class="border border-border-subtle rounded-lg px-3 py-2 bg-surface-lowest text-body-md text-on-surface focus:outline-none transition-all appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23737686%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[position:right_8px_center] pr-8" required="">
+<option disabled="" selected="" value="">Selecione</option>
+<option>Matriz</option>
+<option>Filial</option>
+</select>
+</div>
+<div class="flex flex-col gap-1 input-field md:col-span-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Razão Social *</label>
+<input class="border border-border-subtle rounded-lg px-3 py-2 bg-surface-lowest text-body-md text-on-surface focus:outline-none transition-all" placeholder="Razão Social Completa Ltda." required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1 input-field md:col-span-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Nome Comercial *</label>
+<input class="border border-border-subtle rounded-lg px-3 py-2 bg-surface-lowest text-body-md text-on-surface focus:outline-none transition-all" placeholder="Nome Fantasia" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1 input-field">
+<label class="font-label-md text-label-md text-on-surface-variant">Telefone *</label>
+<input class="border border-border-subtle rounded-lg px-3 py-2 bg-surface-lowest text-body-md text-on-surface focus:outline-none transition-all" placeholder="(11) 90000-0000" required="" type="tel"/>
+</div>
+</div>
+<div class="mt-8 flex justify-between items-center border-t border-border-subtle pt-6">
+<button class="text-secondary hover:text-on-surface font-label-md text-label-md px-4 py-2 rounded-lg transition-colors border border-transparent hover:border-border-subtle" type="button">
+                                    Cancelar
+                                </button>
+<button class="bg-primary-container text-on-primary font-label-md text-label-md px-6 py-2.5 rounded-lg shadow-sm hover:bg-primary-fixed-variant transition-colors flex items-center gap-2" onclick="nextStep(2)" type="button">
+                                    Próximo
+                                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Step 2: Endereço -->
+<div class="step-content hidden animate-[fadeIn_0.3s_ease-out]" id="step-2">
+<h2 class="font-title-md text-title-md text-on-background mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">location_on</span>
+                                Endereço
+                            </h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-stack-lg">
+<div class="flex flex-col gap-1 input-field">
+<label class="font-label-md text-label-md text-on-surface-variant">CEP *</label>
+<div class="relative">
+<input class="w-full border border-border-subtle rounded-lg px-3 py-2 bg-surface-lowest text-body-md text-on-surface focus:outline-none transition-all pr-10" placeholder="00000-000" required="" type="text"/>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 text-primary hover:text-primary-fixed-variant" title="Buscar CEP" type="button">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-1 input-field">
+<label class="font-label-md text-label-md text-on-surface-variant">UF *</label>
+<select class="border border-border-subtle rounded-lg px-3 py-2 bg-surface-lowest text-body-md text-on-surface focus:outline-none transition-all appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23737686%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[position:right_8px_center] pr-8" required="">
+<option disabled="" selected="" value="">Selecione</option>
+<option value="SP">SP</option>
+<option value="RJ">RJ</option>
+<option value="MG">MG</option>
+</select>
+</div>
+<div class="flex flex-col gap-1 input-field md:col-span-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Município *</label>
+<input class="border border-border-subtle rounded-lg px-3 py-2 bg-surface-lowest text-body-md text-on-surface focus:outline-none transition-all" placeholder="Cidade" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1 input-field md:col-span-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Bairro *</label>
+<input class="border border-border-subtle rounded-lg px-3 py-2 bg-surface-lowest text-body-md text-on-surface focus:outline-none transition-all" placeholder="Bairro" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1 input-field md:col-span-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Logradouro *</label>
+<input class="border border-border-subtle rounded-lg px-3 py-2 bg-surface-lowest text-body-md text-on-surface focus:outline-none transition-all" placeholder="Rua, Avenida, etc." required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1 input-field md:col-span-3">
+<label class="font-label-md text-label-md text-on-surface-variant">Complemento</label>
+<input class="border border-border-subtle rounded-lg px-3 py-2 bg-surface-lowest text-body-md text-on-surface focus:outline-none transition-all" placeholder="Sala, Andar, Galpão (Opcional)" type="text"/>
+</div>
+</div>
+<div class="mt-8 flex justify-between items-center border-t border-border-subtle pt-6">
+<button class="text-secondary hover:text-on-surface font-label-md text-label-md px-4 py-2 rounded-lg transition-colors border border-border-subtle hover:bg-surface-container flex items-center gap-2" onclick="prevStep(1)" type="button">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+                                    Voltar
+                                </button>
+<button class="bg-primary-container text-on-primary font-label-md text-label-md px-6 py-2.5 rounded-lg shadow-sm hover:bg-primary-fixed-variant transition-colors flex items-center gap-2" onclick="nextStep(3)" type="button">
+                                    Próximo
+                                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Step 3: Informações Adicionais -->
+<div class="step-content hidden animate-[fadeIn_0.3s_ease-out]" id="step-3">
+<h2 class="font-title-md text-title-md text-on-background mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">data_usage</span>
+                                Informações Adicionais
+                            </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg">
+<div class="flex flex-col gap-1 input-field">
+<label class="font-label-md text-label-md text-on-surface-variant">Patrimônio Líquido</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant font-body-md">R$</span>
+<input class="w-full border border-border-subtle rounded-lg pl-9 pr-3 py-2 bg-surface-lowest text-body-md text-on-surface focus:outline-none transition-all" placeholder="0,00" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-1 input-field">
+<label class="font-label-md text-label-md text-on-surface-variant">Segmento Comercial</label>
+<select class="border border-border-subtle rounded-lg px-3 py-2 bg-surface-lowest text-body-md text-on-surface focus:outline-none transition-all appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23737686%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[position:right_8px_center] pr-8">
+<option disabled="" selected="" value="">Selecione um segmento</option>
+<option>Varejo</option>
+<option>Serviços</option>
+<option>Indústria</option>
+<option>Tecnologia</option>
+</select>
+</div>
+<div class="flex flex-col gap-1 input-field">
+<label class="font-label-md text-label-md text-on-surface-variant">Data Início Situação</label>
+<input class="border border-border-subtle rounded-lg px-3 py-2 bg-surface-lowest text-body-md text-on-surface focus:outline-none transition-all text-on-surface-variant" type="date"/>
+</div>
+<div class="flex flex-col gap-1 input-field">
+<label class="font-label-md text-label-md text-on-surface-variant">Data de Registro</label>
+<input class="border border-border-subtle rounded-lg px-3 py-2 bg-surface-lowest text-body-md text-on-surface focus:outline-none transition-all text-on-surface-variant" type="date"/>
+</div>
+</div>
+<div class="mt-8 flex justify-between items-center border-t border-border-subtle pt-6">
+<button class="text-secondary hover:text-on-surface font-label-md text-label-md px-4 py-2 rounded-lg transition-colors border border-border-subtle hover:bg-surface-container flex items-center gap-2" onclick="prevStep(2)" type="button">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+                                    Voltar
+                                </button>
+<button class="bg-success-green text-white font-label-md text-label-md px-6 py-2.5 rounded-lg shadow-sm hover:bg-opacity-90 transition-colors flex items-center gap-2" type="submit">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                                    Cadastrar Lead
+                                </button>
+</div>
+</div>
+</form>
+</div>
+</div>
+<!-- Success Message (Hidden by default) -->
+<div class="hidden bg-success-green/10 border border-success-green/30 rounded-xl p-6 flex flex-col items-center justify-center text-center animate-[fadeIn_0.5s_ease-out]" id="success-message">
+<div class="w-16 h-16 rounded-full bg-success-green/20 text-success-green flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-[32px]">check</span>
+</div>
+<h3 class="font-title-md text-title-md text-success-green mb-2">Sucesso!</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Lead cadastrado com sucesso no sistema.</p>
+<button class="bg-success-green text-white font-label-md text-label-md px-8 py-2 rounded-lg shadow-sm hover:bg-opacity-90 transition-colors" onclick="resetForm()">
+                    OK
+                </button>
+</div>
+</div>
+</main>
+<script>
+        function nextStep(step) {
+            document.querySelectorAll('.step-content').forEach(el => {
+                el.classList.remove('active', 'animate-[fadeIn_0.3s_ease-out]');
+                el.classList.add('hidden');
+            });
+            
+            const nextEl = document.getElementById(`step-${step}`);
+            nextEl.classList.remove('hidden');
+            // Trigger reflow for animation
+            void nextEl.offsetWidth; 
+            nextEl.classList.add('active', 'animate-[fadeIn_0.3s_ease-out]');
+            
+            updateStepper(step);
+        }
+
+        function prevStep(step) {
+            nextStep(step); // Same logic applies for going back visually
+        }
+
+        function updateStepper(currentStep) {
+            const indicators = document.querySelectorAll('.step-indicator');
+            const progressBar = document.getElementById('progress-bar');
+            
+            indicators.forEach((indicator, index) => {
+                const stepNum = index + 1;
+                if (stepNum < currentStep) {
+                    // Completed
+                    indicator.className = 'w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-label-md text-label-md font-bold shadow-sm ring-4 ring-surface-card step-indicator transition-colors';
+                    indicator.innerHTML = '<span class="material-symbols-outlined text-sm">check</span>';
+                } else if (stepNum === currentStep) {
+                    // Active
+                    indicator.className = 'w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md text-label-md font-bold shadow-sm ring-4 ring-surface-card step-indicator transition-colors';
+                    indicator.innerHTML = stepNum;
+                } else {
+                    // Future
+                    indicator.className = 'w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-label-md text-label-md font-bold ring-4 ring-surface-card step-indicator transition-colors';
+                    indicator.innerHTML = stepNum;
+                }
+            });
+
+            // Update progress bar width
+            let width = '15%'; // Default for step 1
+            if (currentStep === 2) width = '50%';
+            if (currentStep === 3) width = '85%';
+            
+            if(progressBar) {
+                progressBar.style.width = width;
+            }
+        }
+
+        function showSuccess() {
+            document.getElementById('lead-form').parentElement.parentElement.classList.add('hidden');
+            const successEl = document.getElementById('success-message');
+            successEl.classList.remove('hidden');
+        }
+
+        function resetForm() {
+            document.getElementById('lead-form').reset();
+            document.getElementById('success-message').classList.add('hidden');
+            document.getElementById('lead-form').parentElement.parentElement.classList.remove('hidden');
+            nextStep(1);
+        }
+        
+        // Add simple tailwind animation class for fadeIn
+        tailwind.config.theme.extend.keyframes = {
+            fadeIn: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+        }
+    </script>
+</body></html>

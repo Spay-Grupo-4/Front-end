@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reports List - LeadPro CRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#f8f9fa",
+                        "outline-variant": "#c3c6d7",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "error-red": "#EF4444",
+                        "surface-dim": "#d9dadb",
+                        "warning-amber": "#F59E0B",
+                        "surface": "#f8f9fa",
+                        "on-primary-fixed": "#00174b",
+                        "primary-fixed": "#dbe1ff",
+                        "inverse-surface": "#2e3132",
+                        "success-green": "#10B981",
+                        "on-primary-container": "#eeefff",
+                        "surface-container-low": "#f3f4f5",
+                        "border-subtle": "#E2E8F0",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "surface-card": "#FFFFFF",
+                        "tertiary": "#46566c",
+                        "inverse-on-surface": "#f0f1f2",
+                        "surface-container": "#edeeef",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "on-secondary-container": "#586377",
+                        "outline": "#737686",
+                        "inverse-primary": "#b4c5ff",
+                        "on-background": "#191c1d",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-container": "#e9f0ff",
+                        "surface-container-high": "#e7e8e9",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "tertiary-container": "#5e6e85",
+                        "surface-bright": "#f8f9fa",
+                        "primary-container": "#2563eb",
+                        "on-surface": "#191c1d",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#d5e0f8",
+                        "on-secondary-fixed": "#111c2d",
+                        "secondary-fixed": "#d8e3fb",
+                        "surface-tint": "#0053db",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "surface-variant": "#e1e3e4",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#d3e4fe",
+                        "primary": "#004ac6",
+                        "on-surface-variant": "#434655",
+                        "secondary": "#545f73",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "stack-md": "16px",
+                        "unit": "4px",
+                        "stack-sm": "8px",
+                        "gutter": "24px",
+                        "margin-desktop": "32px",
+                        "stack-lg": "24px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "title-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-lg overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="bg-surface-container-lowest text-primary font-title-md text-title-md docked full-width top-0 border-b border-border-subtle shadow-sm flex justify-between items-center w-full px-margin-desktop h-16 sticky z-50">
+<div class="flex items-center gap-4">
+<span class="text-headline-lg font-headline-lg text-primary tracking-tight">LeadPro CRM</span>
+<div class="hidden md:flex ml-8 border border-border-subtle rounded-full px-4 py-1.5 items-center focus-within:border-primary-container focus-within:shadow-[0_0_0_3px_rgba(37,99,235,0.15)] transition-all">
+<span class="material-symbols-outlined text-outline text-[20px] mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md text-on-surface p-0 w-64" placeholder="Search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full p-2 flex items-center justify-center cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full p-2 flex items-center justify-center cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full p-2 flex items-center justify-center cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img alt="User profile" class="w-8 h-8 rounded-full ml-2 object-cover cursor-pointer active:opacity-80 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtV-gMTYlbcFw3a8w4e--UOzF_x8ZNhmCQOTLSRPRXRcTFbS2UwZsEjlGEuki3Sn-Np4uNSsA7OxKy55pUX6Sgd7z_vlq7sb4Ct_KstL5DEbMRMIocSRfnKLDkfCwTKCDbGY0Ia5kZfKHtKGkXW6r6htI1h-XC3f05q69Os6io5Ybg2Q_zY5oOKq-BEai_X2Sb21cGDJ3k9Uy8g5SrkAaiAFzQRyRXZpKUXUxA3NsTvc-DV6OwySAebQ"/>
+</div>
+</nav>
+<div class="flex min-h-[calc(100vh-64px)]">
+<!-- SideNavBar -->
+<aside class="bg-secondary text-on-primary font-label-md text-label-md docked left-0 h-full w-64 bg-secondary shadow-lg fixed left-0 top-16 h-[calc(100vh-64px)] flex flex-col z-40 hidden lg:flex">
+<div class="p-6 border-b border-white/10">
+<div class="flex items-center gap-3 mb-6">
+<img alt="CRM Admin" class="w-10 h-10 rounded-full border-2 border-white/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6E3i0jsVsjjydfH884miUmPyoq2C9iL-Sp6lhpOLRhn1pIVzDG54QvxvxvcI1SHIrgRGDrMCWVxdmxXetHJBaOT6WfvrE7-C5cM2gyo8DX3JvSd3-s4OiEMUVKO7hp4KZCvn1SYT6K5H5RX0YT5IeJOW-KGAtdJ9e2fw1oaVrHyGhDkR5VFMCQbg1lnj8PzgSAnM6VyRYC8r9Lv_j1ZXfGb6-ZSBCCWEfMrSD3AzDzvwJQgKZnl0kSQ"/>
+<div>
+<div class="text-title-md font-title-md text-on-primary">Executive Portal</div>
+<div class="text-[10px] text-secondary-fixed-dim uppercase tracking-wider">Enterprise Lead Management</div>
+</div>
+</div>
+<button class="w-full bg-primary-container text-white py-2 rounded font-label-md hover:bg-surface-tint transition-colors flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span> New Lead
+                </button>
+</div>
+<div class="flex-1 overflow-y-auto py-4">
+<nav class="flex flex-col gap-1 px-3">
+<a class="text-secondary-fixed-dim hover:text-on-primary p-4 flex items-center gap-4 rounded-lg hover:bg-secondary-container/10 transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span> Dashboard
+                    </a>
+<a class="text-secondary-fixed-dim hover:text-on-primary p-4 flex items-center gap-4 rounded-lg hover:bg-secondary-container/10 transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span> Leads
+                    </a>
+<a class="text-secondary-fixed-dim hover:text-on-primary p-4 flex items-center gap-4 rounded-lg hover:bg-secondary-container/10 transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_add">assignment_add</span> Multi-step Registration
+                    </a>
+<a class="bg-primary-container text-on-primary-container border-l-4 border-primary-fixed p-4 flex items-center gap-4 rounded-r-lg transition-transform duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="picture_as_pdf">picture_as_pdf</span> Documents
+                    </a>
+<a class="text-secondary-fixed-dim hover:text-on-primary p-4 flex items-center gap-4 rounded-lg hover:bg-secondary-container/10 transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="forum">forum</span> CRM Assistant
+                    </a>
+</nav>
+</div>
+<div class="p-4 border-t border-white/10 mt-auto">
+<a class="text-secondary-fixed-dim hover:text-on-primary p-3 flex items-center gap-3 rounded hover:bg-secondary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="logout">logout</span> Log Out
+                </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-64 p-margin-mobile md:p-margin-desktop bg-background transition-all">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-on-background mb-1">Generated Reports</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">View, download, and manage your custom reports.</p>
+</div>
+<button class="bg-primary-container text-on-primary px-6 py-2.5 rounded-lg font-label-md text-label-md flex items-center gap-2 hover:bg-surface-tint shadow-sm hover:shadow transition-all active:scale-95 whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px]">add_chart</span>
+                    Request New Report
+                </button>
+</div>
+<!-- Bento/Card Layout container -->
+<div class="bg-surface-card rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-3px_rgba(0,0,0,0.05)] overflow-hidden border border-border-subtle">
+<!-- Filters Bar -->
+<div class="p-gutter border-b border-border-subtle bg-surface-bright flex flex-col lg:flex-row gap-4 items-center justify-between">
+<div class="relative w-full lg:w-1/3">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 border border-border-subtle rounded-lg font-body-md text-body-md focus:outline-none focus:border-primary-container focus:shadow-[0_0_0_3px_rgba(37,99,235,0.15)] transition-all bg-white" placeholder="Search reports by name..." type="text"/>
+</div>
+<div class="flex w-full lg:w-auto gap-4">
+<div class="relative flex-1 lg:flex-none">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">calendar_today</span>
+<select class="w-full pl-9 pr-8 py-2 border border-border-subtle rounded-lg font-body-md text-body-md appearance-none focus:outline-none focus:border-primary-container focus:shadow-[0_0_0_3px_rgba(37,99,235,0.15)] transition-all bg-white text-on-surface">
+<option>All Dates</option>
+<option>Last 7 Days</option>
+<option>Last 30 Days</option>
+<option>This Quarter</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-outline pointer-events-none">arrow_drop_down</span>
+</div>
+<div class="relative flex-1 lg:flex-none">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">filter_list</span>
+<select class="w-full pl-9 pr-8 py-2 border border-border-subtle rounded-lg font-body-md text-body-md appearance-none focus:outline-none focus:border-primary-container focus:shadow-[0_0_0_3px_rgba(37,99,235,0.15)] transition-all bg-white text-on-surface">
+<option>All Statuses</option>
+<option>Completed</option>
+<option>Processing</option>
+<option>Failed</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-outline pointer-events-none">arrow_drop_down</span>
+</div>
+</div>
+</div>
+<!-- Table Area -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-border-subtle">
+<th class="py-3 px-gutter font-label-md text-label-md text-tertiary font-semibold uppercase tracking-wider">Report Name</th>
+<th class="py-3 px-gutter font-label-md text-label-md text-tertiary font-semibold uppercase tracking-wider">Date Generated</th>
+<th class="py-3 px-gutter font-label-md text-label-md text-tertiary font-semibold uppercase tracking-wider">Status</th>
+<th class="py-3 px-gutter font-label-md text-label-md text-tertiary font-semibold uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle font-body-md text-body-md text-on-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group cursor-default">
+<td class="py-4 px-gutter">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-fixed/20 text-primary-fixed-dim flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">bar_chart</span>
+</div>
+<div>
+<div class="font-title-md text-[14px] text-on-surface">Q3 Regional Sales Performance</div>
+<div class="text-[12px] text-on-surface-variant">CSV • 2.4 MB</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-gutter text-on-surface-variant">Oct 15, 2023 <br/><span class="text-[12px]">09:41 AM</span></td>
+<td class="py-4 px-gutter">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success-green/10 text-success-green font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-success-green"></span> Completed
+                                    </span>
+</td>
+<td class="py-4 px-gutter text-right">
+<button class="text-primary hover:bg-primary-fixed/20 p-2 rounded-md transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100 flex inline-flex items-center gap-1 text-label-md font-label-md">
+<span class="material-symbols-outlined text-[18px]">download</span> Download
+                                    </button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group cursor-default">
+<td class="py-4 px-gutter">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-fixed/20 text-primary-fixed-dim flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">pie_chart</span>
+</div>
+<div>
+<div class="font-title-md text-[14px] text-on-surface">Annual Lead Conversion Funnel</div>
+<div class="text-[12px] text-on-surface-variant">PDF • --</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-gutter text-on-surface-variant">Oct 14, 2023 <br/><span class="text-[12px]">14:22 PM</span></td>
+<td class="py-4 px-gutter">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-warning-amber/10 text-warning-amber font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-warning-amber animate-pulse"></span> Processing
+                                    </span>
+</td>
+<td class="py-4 px-gutter text-right">
+<button class="text-outline/50 p-2 rounded-md cursor-not-allowed flex inline-flex items-center gap-1 text-label-md font-label-md opacity-0 group-hover:opacity-100" disabled="">
+<span class="material-symbols-outlined text-[18px]">download</span> Download
+                                    </button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group cursor-default">
+<td class="py-4 px-gutter">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-error-container/50 text-error flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">error</span>
+</div>
+<div>
+<div class="font-title-md text-[14px] text-on-surface">Enterprise Account Churn Risk Analysis</div>
+<div class="text-[12px] text-error">Data source timeout</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-gutter text-on-surface-variant">Oct 12, 2023 <br/><span class="text-[12px]">08:15 AM</span></td>
+<td class="py-4 px-gutter">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-error-red/10 text-error-red font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-error-red"></span> Failed
+                                    </span>
+</td>
+<td class="py-4 px-gutter text-right">
+<button class="text-primary hover:bg-primary-fixed/20 p-2 rounded-md transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100 flex inline-flex items-center gap-1 text-label-md font-label-md">
+<span class="material-symbols-outlined text-[18px]">refresh</span> Retry
+                                    </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="px-gutter py-4 border-t border-border-subtle flex items-center justify-between bg-surface-bright">
+<span class="text-body-md text-on-surface-variant">Showing 1 to 3 of 45 entries</span>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-border-subtle rounded text-body-md text-on-surface-variant hover:bg-surface-container-low disabled:opacity-50" disabled="">Prev</button>
+<button class="px-3 py-1 border border-primary-container bg-primary-container/10 rounded text-body-md text-primary font-medium">1</button>
+<button class="px-3 py-1 border border-border-subtle rounded text-body-md text-on-surface-variant hover:bg-surface-container-low">2</button>
+<button class="px-3 py-1 border border-border-subtle rounded text-body-md text-on-surface-variant hover:bg-surface-container-low">3</button>
+<button class="px-3 py-1 border border-border-subtle rounded text-body-md text-on-surface-variant hover:bg-surface-container-low">Next</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
+<script>
+if (!document.getElementById('toast')) {
+  const t = document.createElement('div');
+  t.id = 'toast';
+  t.role = 'status';
+  t.setAttribute('aria-live','polite');
+  t.className = 'fixed z-[100] bg-success-green text-on-primary px-4 py-2 rounded-md shadow-lg opacity-0 pointer-events-none transition-opacity duration-300';
+  t.style.top = '72px';
+  t.style.right = '16px';
+  document.body.appendChild(t);
+}
+function showToast(message, type='info'){
+  const toast = document.getElementById('toast');
+  if(!toast) return;
+  toast.textContent = message;
+  toast.classList.remove('opacity-0');
+  toast.classList.add('opacity-100');
+  toast.classList.remove('bg-primary','bg-error-red','bg-success-green');
+  if(type==='success') toast.classList.add('bg-success-green');
+  else if(type==='error') toast.classList.add('bg-error-red');
+  else toast.classList.add('bg-primary');
+  clearTimeout(window._reports_toast);
+  window._reports_toast = setTimeout(()=>{ toast.classList.remove('opacity-100'); toast.classList.add('opacity-0'); },7000);
+}
+</script>

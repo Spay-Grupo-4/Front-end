@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cadastro de Lead - Etapa 3</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-container": "#d5e0f8",
+                      "tertiary-container": "#5e6e85",
+                      "on-tertiary-container": "#e9f0ff",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "outline": "#737686",
+                      "outline-variant": "#c3c6d7",
+                      "on-background": "#191c1d",
+                      "inverse-on-surface": "#f0f1f2",
+                      "surface-variant": "#e1e3e4",
+                      "on-secondary-container": "#586377",
+                      "background": "#f8f9fa",
+                      "surface-bright": "#f8f9fa",
+                      "on-primary": "#ffffff",
+                      "primary-container": "#2563eb",
+                      "surface-card": "#FFFFFF",
+                      "surface-tint": "#0053db",
+                      "on-tertiary": "#ffffff",
+                      "on-surface": "#191c1d",
+                      "on-tertiary-fixed-variant": "#38485d",
+                      "inverse-surface": "#2e3132",
+                      "surface-container-lowest": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "on-secondary-fixed": "#111c2d",
+                      "on-primary-container": "#eeefff",
+                      "surface-dim": "#d9dadb",
+                      "error-red": "#EF4444",
+                      "surface-container-high": "#e7e8e9",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-fixed": "#0b1c30",
+                      "surface-container-highest": "#e1e3e4",
+                      "secondary": "#545f73",
+                      "inverse-primary": "#b4c5ff",
+                      "on-primary-fixed": "#00174b",
+                      "surface-container-low": "#f3f4f5",
+                      "primary-fixed": "#dbe1ff",
+                      "on-surface-variant": "#434655",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed-dim": "#b7c8e1",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed-variant": "#3c475a",
+                      "tertiary": "#46566c",
+                      "surface-container": "#edeeef",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "warning-amber": "#F59E0B",
+                      "surface": "#f8f9fa",
+                      "secondary-fixed-dim": "#bcc7de",
+                      "tertiary-fixed": "#d3e4fe",
+                      "secondary-fixed": "#d8e3fb",
+                      "success-green": "#10B981",
+                      "error": "#ba1a1a",
+                      "primary": "#004ac6",
+                      "border-subtle": "#E2E8F0"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "margin-mobile": "16px",
+                      "gutter": "24px",
+                      "stack-md": "16px",
+                      "stack-lg": "24px",
+                      "margin-desktop": "32px",
+                      "stack-sm": "8px"
+              },
+              "fontFamily": {
+                      "headline-xl": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "title-md": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-xl": [
+                              "36px",
+                              {
+                                      "lineHeight": "44px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "title-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex min-h-screen">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-screen flex flex-col z-40 hidden lg:flex bg-secondary dark:bg-on-secondary-fixed shadow-lg w-64 h-full docked">
+<div class="p-gutter flex flex-col items-center border-b border-white/10">
+<img alt="CRM Admin" class="w-16 h-16 rounded-full mb-stack-md object-cover" data-alt="A professional headshot of a confident corporate executive in a modern office, sharp focus, natural lighting, wearing a well-tailored navy suit. The style is hyper-realistic and high-end corporate photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBg8coZbYT8_q8MG5Kl2IWx342IAiEb719lvT_tpl8SrDqMuvaw0zGLjrfs6cxZSRlYw_3udsjdktur9RHnysSYEOy9Efcp4uEml3MuYgUJXZSRZOUe4cu0dJDdDAXyi5sVI5DqGyL_BKMypI9VkR3XcIdMASwwGCW9DGK1z54qBTcE14EJURW99swszVmQJglDZ-hWTjtU7M7-4IqM3ypnNlpCfuzTugLiMG5QTfHX1JEOiILkrSf7w"/>
+<h2 class="text-title-md font-title-md text-on-primary text-center">Executive Portal</h2>
+<p class="font-label-sm text-label-sm text-secondary-fixed-dim text-center">Enterprise Lead Management</p>
+<button class="mt-stack-lg w-full py-2 bg-primary hover:bg-primary/90 text-on-primary rounded-lg font-label-md text-label-md transition-colors shadow-sm flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 16px;">add</span> New Lead
+            </button>
+</div>
+<ul class="flex-1 py-stack-md flex flex-col gap-1 overflow-y-auto w-full">
+<li>
+<a class="text-secondary-fixed-dim hover:text-on-primary p-4 flex items-center gap-4 font-label-md text-label-md hover:bg-secondary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+                </a>
+</li>
+<li>
+<a class="text-secondary-fixed-dim hover:text-on-primary p-4 flex items-center gap-4 font-label-md text-label-md hover:bg-secondary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined">group</span> Leads
+                </a>
+</li>
+<li>
+<a class="bg-primary-container text-on-primary-container border-l-4 border-primary-fixed p-4 flex items-center gap-4 font-label-md text-label-md transition-transform duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">assignment_add</span> Multi-step Registration
+                </a>
+</li>
+<li>
+<a class="text-secondary-fixed-dim hover:text-on-primary p-4 flex items-center gap-4 font-label-md text-label-md hover:bg-secondary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined">picture_as_pdf</span> Documents
+                </a>
+</li>
+<li>
+<a class="text-secondary-fixed-dim hover:text-on-primary p-4 flex items-center gap-4 font-label-md text-label-md hover:bg-secondary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined">forum</span> CRM Assistant
+                </a>
+</li>
+</ul>
+<div class="p-4 border-t border-white/10 mt-auto">
+<a class="text-secondary-fixed-dim hover:text-on-primary p-2 flex items-center gap-4 font-label-md text-label-md hover:bg-secondary-container/10 transition-all rounded-lg mt-1" href="#">
+<span class="material-symbols-outlined">logout</span> Log Out
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col lg:ml-64 min-w-0">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-margin-desktop h-16 sticky top-0 z-50 bg-surface-container-lowest dark:bg-surface-container-low border-b border-border-subtle dark:border-outline-variant shadow-sm docked full-width top-0">
+<div class="flex items-center gap-4">
+<!-- Mobile Menu Button (Visible only on small screens) -->
+<button class="lg:hidden text-primary dark:text-primary-fixed-dim p-2 rounded-md hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="text-headline-lg font-headline-lg text-primary dark:text-primary-fixed-dim tracking-tight">LeadPro CRM</div>
+</div>
+<!-- Search Bar (on_left configuration) -->
+<div class="hidden md:flex items-center flex-1 ml-gutter max-w-md relative">
+<span class="material-symbols-outlined absolute left-3 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-border-subtle rounded-full text-body-md font-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all" placeholder="Search leads, docs, etc..." type="text"/>
+</div>
+<div class="flex items-center gap-2 ml-auto">
+<button class="p-2 text-on-surface-variant dark:text-secondary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors rounded-full cursor-pointer active:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant dark:text-secondary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors rounded-full cursor-pointer active:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="p-2 text-on-surface-variant dark:text-secondary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors rounded-full cursor-pointer active:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="ml-4 w-8 h-8 rounded-full overflow-hidden border border-border-subtle shadow-sm cursor-pointer hover:opacity-90 transition-opacity">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A subtle, minimalist abstract geometric pattern in light gray and white tones, suitable as a generic user profile placeholder background. The style is clean, modern, and unobtrusive." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4nhMvkNSZB9UA-5qfxASnNX4d7rt846gqDNkwX5D8LdVtlvycHOgYOMBMl5z_rirLJQK5eQ5Iey-kumneb6XjYYRSog259Kc4Jo83hWkkT7VqayzwX41dwo_nkZW24WDpo7Wjv5UaAi_67EhxBHFSi95KORPMYw_JNzoG64cOmm-g7eoDYiTMYz_OjkNOFpwWErFYLnhi6Hz-fdLkwoMay-9NufHzzqQs4ZmDFlbTdqvlO2i06lJJnw"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 p-margin-mobile lg:p-margin-desktop overflow-y-auto">
+<!-- Page Header -->
+<div class="mb-stack-lg">
+<h1 class="font-headline-xl text-headline-xl text-on-surface">Cadastro Manual</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-unit">Preencha o formulário em etapas para registrar um novo lead.</p>
+</div>
+<!-- Main Form Card -->
+<div class="bg-surface-card rounded-xl shadow-sm border border-border-subtle p-gutter">
+<!-- Stepper -->
+<div class="mb-stack-lg border-b border-border-subtle pb-stack-lg">
+<div class="flex items-center justify-between max-w-3xl mx-auto relative">
+<!-- Connecting Line -->
+<div class="absolute top-1/2 left-0 w-full h-0.5 bg-border-subtle -z-10 -translate-y-1/2"></div>
+<!-- Step 1 (Completed) -->
+<div class="flex flex-col items-center gap-2 bg-surface-card px-2">
+<div class="w-8 h-8 rounded-full bg-success-green text-white flex items-center justify-center font-label-md shadow-sm">
+<span class="material-symbols-outlined" style="font-size: 18px;">check</span>
+</div>
+<span class="font-label-sm text-label-sm text-success-green">Dados Básicos</span>
+</div>
+<!-- Step 2 (Completed) -->
+<div class="flex flex-col items-center gap-2 bg-surface-card px-2">
+<div class="w-8 h-8 rounded-full bg-success-green text-white flex items-center justify-center font-label-md shadow-sm">
+<span class="material-symbols-outlined" style="font-size: 18px;">check</span>
+</div>
+<span class="font-label-sm text-label-sm text-success-green">Endereço</span>
+</div>
+<!-- Step 3 (Active) -->
+<div class="flex flex-col items-center gap-2 bg-surface-card px-2">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-label-md shadow-sm ring-4 ring-primary-fixed">
+                                3
+                            </div>
+<span class="font-label-sm text-label-sm text-primary font-bold">Informações Adicionais</span>
+</div>
+</div>
+</div>
+<!-- Form Fields -->
+<form class="space-y-stack-lg">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Patrimônio Líquido -->
+<div class="flex flex-col gap-unit">
+<label class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-outline" style="font-size: 16px;">payments</span> Patrimônio Líquido
+                            </label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant font-body-md">R$</span>
+<input class="w-full pl-9 pr-3 py-2 border border-border-subtle rounded-md font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/20 transition-shadow bg-surface-bright outline-none" placeholder="0,00" type="text"/>
+</div>
+</div>
+<!-- Segmento Comercial -->
+<div class="flex flex-col gap-unit">
+<label class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-outline" style="font-size: 16px;">domain</span> Segmento Comercial
+                            </label>
+<div class="relative">
+<select class="w-full pl-3 pr-10 py-2 border border-border-subtle rounded-md font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/20 transition-shadow bg-surface-bright outline-none appearance-none cursor-pointer">
+<option disabled="" selected="" value="">Selecione um segmento...</option>
+<option value="tech">Tecnologia</option>
+<option value="health">Saúde</option>
+<option value="finance">Finanças</option>
+<option value="retail">Varejo</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Data Início Situação -->
+<div class="flex flex-col gap-unit">
+<label class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-outline" style="font-size: 16px;">event</span> Data Início Situação
+                            </label>
+<div class="relative">
+<input class="w-full pl-3 pr-3 py-2 border border-border-subtle rounded-md font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/20 transition-shadow bg-surface-bright outline-none" type="date"/>
+</div>
+</div>
+<!-- Data de Registro -->
+<div class="flex flex-col gap-unit">
+<label class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-outline" style="font-size: 16px;">calendar_today</span> Data de Registro
+                            </label>
+<div class="relative">
+<input class="w-full pl-3 pr-3 py-2 border border-border-subtle rounded-md font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/20 transition-shadow bg-surface-bright outline-none" type="date"/>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="pt-stack-md mt-stack-md border-t border-border-subtle flex justify-end gap-stack-md">
+<button class="px-6 py-2 border border-border-subtle rounded-md font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-colors focus:outline-none focus:ring-2 focus:ring-border-subtle flex items-center gap-2" type="button">
+<span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span> Voltar
+                        </button>
+<button class="px-6 py-2 bg-success-green hover:bg-success-green/90 text-white rounded-md font-label-md text-label-md shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-success-green/50 flex items-center gap-2" type="button">
+                            Cadastrar Lead <span class="material-symbols-outlined" style="font-size: 18px;">check_circle</span>
+</button>
+</div>
+</form>
+</div>
+</main>
+</div>
+</body></html>

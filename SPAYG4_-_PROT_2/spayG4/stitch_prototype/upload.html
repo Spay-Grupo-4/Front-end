@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Upload de PDF - LeadPro CRM</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#e9f0ff",
+                        "outline-variant": "#c3c6d7",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-container-low": "#f3f4f5",
+                        "warning-amber": "#F59E0B",
+                        "surface-dim": "#d9dadb",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#dbe1ff",
+                        "primary": "#004ac6",
+                        "secondary": "#545f73",
+                        "on-primary-fixed": "#00174b",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#b4c5ff",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#586377",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-primary-container": "#eeefff",
+                        "on-surface-variant": "#434655",
+                        "outline": "#737686",
+                        "surface-tint": "#0053db",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#5e6e85",
+                        "success-green": "#10B981",
+                        "primary-container": "#2563eb",
+                        "error-red": "#EF4444",
+                        "tertiary": "#46566c",
+                        "surface-bright": "#f8f9fa",
+                        "inverse-surface": "#2e3132",
+                        "surface-variant": "#e1e3e4",
+                        "surface-container": "#edeeef",
+                        "background": "#f8f9fa",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "surface": "#f8f9fa",
+                        "error": "#ba1a1a",
+                        "on-surface": "#191c1d",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "border-subtle": "#E2E8F0",
+                        "tertiary-fixed": "#d3e4fe",
+                        "on-background": "#191c1d",
+                        "secondary-container": "#d5e0f8",
+                        "inverse-on-surface": "#f0f1f2",
+                        "secondary-fixed": "#d8e3fb",
+                        "surface-card": "#FFFFFF",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "on-secondary-fixed": "#111c2d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "margin-desktop": "32px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "unit": "4px",
+                        "stack-lg": "24px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "title-md": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background font-body-md text-on-background flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-secondary dark:bg-on-secondary-fixed shadow-lg docked left-0 h-full w-64 fixed left-0 top-0 h-screen flex flex-col z-40 hidden lg:flex">
+<!-- Header -->
+<div class="p-6 flex items-center gap-4 border-b border-white/10">
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden flex items-center justify-center">
+<img alt="CRM Admin" class="w-full h-full object-cover" data-alt="A professional headshot of an executive in a bright, modern corporate office setting with subtle high-key lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5CcPe-gGqTYg1gso7Z77Bsk1HsW5JFKWSQKEhoBN0ToiAQWkLxbO50r39Bnl3FlfLmGxBdbXSc-kexT0RAp2cwq0XtbDHOwJj50o6dusgNF4xiMngMNLPSSUkfyYgLKWj5L3szVVfZMMnF7HeI40tcD1VC6pj6R7CCNPFJ8b6l-boWDGWrGEbOCbxPdF8ec9h4sV8xrc8P3sk99HAIutNY9pN9RYctaNshbuAoW0lyIhGEq0_ntIrgw"/>
+</div>
+<div>
+<h2 class="text-title-md font-title-md text-on-primary">Executive Portal</h2>
+<p class="font-label-sm text-label-sm text-secondary-fixed-dim">Enterprise Lead Management</p>
+</div>
+</div>
+<!-- CTA -->
+<div class="p-4">
+<button class="w-full py-2 bg-primary-container text-on-primary font-label-md rounded-lg shadow-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+                New Lead
+            </button>
+</div>
+<!-- Tabs -->
+<ul class="flex-1 flex flex-col mt-4 font-label-md text-label-md">
+<li>
+<a class="text-secondary-fixed-dim hover:text-on-primary p-4 flex items-center gap-4 hover:bg-secondary-container/10 transition-all cursor-pointer transition-transform duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                    Dashboard
+                </a>
+</li>
+<li>
+<a class="text-secondary-fixed-dim hover:text-on-primary p-4 flex items-center gap-4 hover:bg-secondary-container/10 transition-all cursor-pointer transition-transform duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">group</span>
+                    Leads
+                </a>
+</li>
+<li>
+<a class="text-secondary-fixed-dim hover:text-on-primary p-4 flex items-center gap-4 hover:bg-secondary-container/10 transition-all cursor-pointer transition-transform duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">assignment_add</span>
+                    Multi-step Registration
+                </a>
+</li>
+<!-- Active Tab -->
+<li>
+<a class="bg-primary-container text-on-primary-container border-l-4 border-primary-fixed p-4 flex items-center gap-4 cursor-pointer transition-transform duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+                    Documents
+                </a>
+</li>
+<li>
+<a class="text-secondary-fixed-dim hover:text-on-primary p-4 flex items-center gap-4 hover:bg-secondary-container/10 transition-all cursor-pointer transition-transform duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">forum</span>
+                    CRM Assistant
+                </a>
+</li>
+</ul>
+<!-- Footer -->
+<div class="mt-auto border-t border-white/10 p-4">
+<ul class="flex flex-col font-label-md text-label-md">
+<li>
+<a class="text-secondary-fixed-dim hover:text-on-primary p-4 flex items-center gap-4 hover:bg-secondary-container/10 transition-all cursor-pointer transition-transform duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">logout</span>
+                        Log Out
+                    </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-64 flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest dark:bg-surface-container-low border-b border-border-subtle dark:border-outline-variant shadow-sm docked full-width top-0 flex justify-between items-center w-full px-margin-desktop h-16 sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<span class="text-headline-lg font-headline-lg text-primary dark:text-primary-fixed-dim tracking-tight">LeadPro CRM</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant dark:text-secondary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors cursor-pointer active:opacity-80 transition-opacity p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant dark:text-secondary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors cursor-pointer active:opacity-80 transition-opacity p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="text-on-surface-variant dark:text-secondary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors cursor-pointer active:opacity-80 transition-opacity p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden ml-2 cursor-pointer">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A close-up portrait of a business professional looking confident, illuminated by soft studio lighting against a neutral background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFMmMmuhtlwWCOE26nr7BwQNyzXoYavuMjRma-MbB_gNHdDyQFSCuxSgwsp9hU1RtD-hwcSF5jlIt5OPLdbyJWj81UsQgTmBAZiTU7z2IYlaCM33VkX0JZxTq7LA7u3S8Htsrml8HuTwvwrUsjJ_C5W5O_QDvs_6jwNIsZLMo94YWk6ZteDS05j1v9YDNx1i5RU52mrSM1H-r9VXhWcXHF4wq9bAOtRarO_VlOQPCyc4wfQpdOtlDKTA"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<div class="flex-1 overflow-y-auto p-margin-desktop w-full">
+<div class="max-w-[1200px] mx-auto flex flex-col gap-stack-lg">
+<!-- Page Header -->
+<div>
+<h1 class="font-headline-xl text-headline-xl text-on-background">Upload de Arquivo PDF</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2">Envie um arquivo PDF para armazenamento na bronze</p>
+</div>
+<!-- Main Layout Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Left Col: Upload Zone & Success -->
+<div class="lg:col-span-8 flex flex-col gap-stack-lg">
+<!-- Success Message Banner -->
+<div class="bg-success-green/10 border border-success-green/30 rounded-xl p-4 flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-3">
+<div class="bg-success-green text-white rounded-full p-1 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-success-green">Sucesso!</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Lead cadastrado com sucesso!</p>
+</div>
+</div>
+<button class="px-4 py-2 bg-white text-success-green border border-success-green/30 rounded-lg font-label-md hover:bg-success-green/5 transition-colors">
+                                OK
+                            </button>
+</div>
+<!-- Upload Card -->
+<div class="bg-surface-card rounded-xl p-8 shadow-[0px_1px_3px_rgba(0,0,0,0.05),0px_10px_15px_-3px_rgba(0,0,0,0.05)] border border-border-subtle">
+<!-- Drag & Drop Area (with preview active) -->
+<div class="border-2 border-dashed border-primary-fixed-dim bg-surface-container-low rounded-xl p-8 flex flex-col items-center justify-center text-center transition-colors hover:bg-surface-container">
+<!-- File Preview (Simulating an uploaded file) -->
+<div class="bg-white border border-border-subtle rounded-lg p-4 flex items-center justify-between w-full max-w-md shadow-sm mb-6">
+<div class="flex items-center gap-4">
+<div class="text-error-red bg-error-container p-2 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">picture_as_pdf</span>
+</div>
+<div class="text-left">
+<p class="font-label-md text-label-md text-on-background">lead_dados_cadastrais_01.pdf</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">1.2 MB</p>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-error-red transition-colors p-1 rounded-full hover:bg-surface-variant">
+<span class="material-symbols-outlined text-xl">close</span>
+</button>
+</div>
+<div class="text-primary bg-primary-container/10 p-4 rounded-full mb-4">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">cloud_upload</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-background mb-2">Arraste e solte o arquivo aqui</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">ou</p>
+<div class="flex gap-4">
+<button class="px-6 py-2 border border-border-subtle rounded-lg font-label-md text-on-surface-variant hover:bg-surface-variant transition-colors">
+                                        Cancelar
+                                    </button>
+<button class="px-6 py-2 bg-primary-container text-on-primary rounded-lg font-label-md hover:bg-primary transition-colors shadow-sm">
+                                        Enviar PDF
+                                    </button>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-6">Apenas arquivos .pdf</p>
+</div>
+</div>
+</div>
+<!-- Right Col: Expected Fields -->
+<div class="lg:col-span-4">
+<div class="bg-surface-card rounded-xl p-6 shadow-[0px_1px_3px_rgba(0,0,0,0.05),0px_10px_15px_-3px_rgba(0,0,0,0.05)] border border-border-subtle h-full">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-title-md text-title-md text-on-background">Campos esperados no PDF</h3>
+<span class="material-symbols-outlined text-outline">info</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">O PDF preenchido manualmente deve conter todos os campos abaixo, seguindo o mesmo padrão do dataset atual:</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container-low border border-border-subtle text-on-surface-variant font-label-sm text-label-sm px-3 py-1.5 rounded-md">cnpj</span>
+<span class="bg-surface-container-low border border-border-subtle text-on-surface-variant font-label-sm text-label-sm px-3 py-1.5 rounded-md">type</span>
+<span class="bg-surface-container-low border border-border-subtle text-on-surface-variant font-label-sm text-label-sm px-3 py-1.5 rounded-md">nome_social</span>
+<span class="bg-surface-container-low border border-border-subtle text-on-surface-variant font-label-sm text-label-sm px-3 py-1.5 rounded-md">nome_comercial</span>
+<span class="bg-surface-container-low border border-border-subtle text-on-surface-variant font-label-sm text-label-sm px-3 py-1.5 rounded-md">status</span>
+<span class="bg-surface-container-low border border-border-subtle text-on-surface-variant font-label-sm text-label-sm px-3 py-1.5 rounded-md">telefone</span>
+<span class="bg-surface-container-low border border-border-subtle text-on-surface-variant font-label-sm text-label-sm px-3 py-1.5 rounded-md">cep</span>
+<span class="bg-surface-container-low border border-border-subtle text-on-surface-variant font-label-sm text-label-sm px-3 py-1.5 rounded-md">uf</span>
+<span class="bg-surface-container-low border border-border-subtle text-on-surface-variant font-label-sm text-label-sm px-3 py-1.5 rounded-md">municipio</span>
+<span class="bg-surface-container-low border border-border-subtle text-on-surface-variant font-label-sm text-label-sm px-3 py-1.5 rounded-md">bairro</span>
+<span class="bg-surface-container-low border border-border-subtle text-on-surface-variant font-label-sm text-label-sm px-3 py-1.5 rounded-md">complemento</span>
+<span class="bg-surface-container-low border border-border-subtle text-on-surface-variant font-label-sm text-label-sm px-3 py-1.5 rounded-md">logradouro</span>
+<span class="bg-surface-container-low border border-border-subtle text-on-surface-variant font-label-sm text-label-sm px-3 py-1.5 rounded-md">valor_patrimonio_liquido</span>
+<span class="bg-surface-container-low border border-border-subtle text-on-surface-variant font-label-sm text-label-sm px-3 py-1.5 rounded-md">data_inicio_situacao</span>
+<span class="bg-surface-container-low border border-border-subtle text-on-surface-variant font-label-sm text-label-sm px-3 py-1.5 rounded-md">data_registro</span>
+<span class="bg-surface-container-low border border-border-subtle text-on-surface-variant font-label-sm text-label-sm px-3 py-1.5 rounded-md">segmento_comercial_estimado</span>
+<span class="bg-surface-container-low border border-border-subtle text-on-surface-variant font-label-sm text-label-sm px-3 py-1.5 rounded-md">elegibilidade_lead_maquininha</span>
+<span class="bg-surface-container-low border border-border-subtle text-on-surface-variant font-label-sm text-label-sm px-3 py-1.5 rounded-md">porte_lead_estimado</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SPAYG4 - Protótipo Navegável</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary": "#ffffff",
+                        "on-surface": "#191c1d",
+                        "primary-container": "#2563eb",
+                        "error-red": "#EF4444",
+                        "surface-container-highest": "#e1e3e4",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "on-surface-variant": "#434655",
+                        "tertiary-container": "#5e6e85",
+                        outline: "#737686",
+                        secondary: "#545f73",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-primary-fixed": "#00174b",
+                        "tertiary-fixed": "#d3e4fe",
+                        "on-secondary-container": "#586377",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "surface-container-low": "#f3f4f5",
+                        "secondary-container": "#d5e0f8",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-container": "#e9f0ff",
+                        "on-background": "#191c1d",
+                        "warning-amber": "#F59E0B",
+                        "secondary-fixed": "#d8e3fb",
+                        "on-secondary": "#ffffff",
+                        "border-subtle": "#E2E8F0",
+                        "surface-container-high": "#e7e8e9",
+                        "on-secondary-fixed": "#111c2d",
+                        "inverse-primary": "#b4c5ff",
+                        primary: "#004ac6",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2e3132",
+                        tertiary: "#46566c",
+                        background: "#f8f9fa",
+                        "surface-tint": "#0053db",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#e1e3e4",
+                        "surface-bright": "#f8f9fa",
+                        "outline-variant": "#c3c6d7",
+                        "success-green": "#10B981",
+                        "surface-dim": "#d9dadb",
+                        "on-primary-container": "#eeefff",
+                        error: "#ba1a1a",
+                        "surface-container": "#edeeef",
+                        "surface-card": "#FFFFFF",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        surface: "#f8f9fa",
+                        "on-tertiary-fixed": "#0b1c30"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        gutter: "24px",
+                        unit: "4px",
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "margin-mobile": "16px",
+                        "stack-lg": "24px",
+                        "margin-desktop": "32px"
+                    },
+                    fontFamily: {
+                        "title-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    fontSize: {
+                        "title-md": ["18px", { lineHeight: "24px", fontWeight: "600" }],
+                        "label-sm": ["11px", { lineHeight: "14px", fontWeight: "500" }],
+                        "headline-lg-mobile": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+                        "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
+                        "headline-xl": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "headline-lg": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }]
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.filled { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .screen {
+            display: none;
+            width: min(100%, 1200px);
+            margin: 0 auto;
+        }
+        .screen.active { display: block; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen">
+    <div id="app" class="min-h-screen">
+        <!-- Login Screen -->
+        <section id="screen-login" class="screen active">
+            <div class="min-h-screen flex items-center justify-center p-4">
+                <main class="w-full max-w-md">
+                    <div class="relative overflow-hidden rounded-xl shadow-[0px_10px_40px_-10px_rgba(0,0,0,0.1)] border border-border-subtle p-8 md:p-10 bg-white">
+                        <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary-container rounded-full mix-blend-multiply filter blur-3xl opacity-20 pointer-events-none"></div>
+                        <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-tertiary-container rounded-full mix-blend-multiply filter blur-3xl opacity-20 pointer-events-none"></div>
+                        <div class="relative z-10 flex flex-col items-center text-center mb-8">
+                            <div class="w-20 h-20 bg-white flex items-center justify-center mb-6 shadow-sm">
+                                <img src="assets/spayg4-logo.svg" alt="Logomarca SPAYG4" class="w-16 h-16" />
+                            </div>
+                            <h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Acesso ao Sistema</h1>
+                            <p class="font-body-md text-body-md text-on-surface-variant">Entre com usuário e senha</p>
+                        </div>
+                        <form id="login-form" class="relative z-10 space-y-6">
+                            <div class="space-y-2 text-left">
+                                <label for="login-username" class="block font-label-md text-label-md text-on-surface">Usuário</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-outline">
+                                        <span class="material-symbols-outlined">person</span>
+                                    </div>
+                                    <input id="login-username" required type="text" placeholder="Seu usuário" class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border border-border-subtle rounded-lg font-body-md text-body-md text-on-surface placeholder-outline-variant focus:outline-none focus:border-primary focus:ring-0 transition-all duration-200" />
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-left">
+                                <label for="login-password" class="block font-label-md text-label-md text-on-surface">Senha</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-outline">
+                                        <span class="material-symbols-outlined">lock</span>
+                                    </div>
+                                    <input id="login-password" required type="password" placeholder="Sua senha" class="w-full pl-10 pr-10 py-3 bg-surface-container-lowest border border-border-subtle rounded-lg font-body-md text-body-md text-on-surface placeholder-outline-variant focus:outline-none focus:border-primary focus:ring-0 transition-all duration-200" />
+                                    <button id="toggle-password" type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-outline hover:text-on-surface transition-colors" aria-label="Mostrar senha">
+                                        <span class="material-symbols-outlined">visibility_off</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="pt-4 flex flex-col space-y-4">
+                                <button type="submit" class="w-full py-3 px-4 bg-primary-container hover:bg-primary text-on-primary font-title-md text-title-md rounded-lg shadow-sm hover:shadow-md transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-2">
+                                    Entrar
+                                    <span class="material-symbols-outlined">login</span>
+                                </button>
+                                <div class="flex items-center justify-center gap-4 text-outline font-label-md text-label-md">
+                                    <a href="#" class="text-on-surface-variant hover:text-primary transition-colors hover:underline underline-offset-4 decoration-border-subtle">Esqueceu a senha?</a>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="mt-8 pt-6 border-t border-border-subtle text-center relative z-10">
+                            <p class="font-label-sm text-label-sm text-outline flex items-center justify-center gap-1">
+                                <span class="material-symbols-outlined text-[14px]">shield</span>
+                                Acesso seguro ao Executive Portal
+                            </p>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </section>
+
+        <!-- Authenticated Shell -->
+        <div id="shell" class="hidden lg:flex"> </div>
+    </div>
+
+    <template id="shell-template">
+        <div class="flex w-full">
+            <aside id="sidebar" class="bg-secondary text-on-primary font-label-md text-label-md hidden lg:flex flex-col w-64 lg:sticky lg:top-0 lg:h-screen shadow-lg z-40">
+                <div class="p-6 border-b border-white/10 flex flex-col gap-2">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+                            <img id="sidebar-avatar" src="assets/avatar-minimalista-admin.svg" alt="Avatar do administrador" class="w-full h-full object-cover" />
+                        </div>
+                        <div>
+                            <h2 class="text-title-md font-title-md text-on-primary">Executive Portal</h2>
+                            <p class="text-secondary-fixed-dim text-xs opacity-80">Enterprise Lead Management</p>
+                        </div>
+                    </div>
+                    <button data-nav="cadastro-step1" class="mt-2 w-full bg-primary-container text-on-primary py-2 px-4 rounded-md font-label-md hover:bg-primary-fixed hover:text-on-primary-fixed transition-colors flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">add</span>
+                        Novo Lead
+                    </button>
+                </div>
+                <div class="flex-1 overflow-y-auto py-4">
+                    <nav class="flex flex-col">
+                        <button data-nav="dashboard" class="nav-link text-left p-4 flex items-center gap-4 hover:bg-secondary-container/10 transition-all">
+                            <span class="material-symbols-outlined">dashboard</span>
+                            Dashboard
+                        </button>
+                        <button data-nav="cadastro-step1" class="nav-link text-left p-4 flex items-center gap-4 hover:bg-secondary-container/10 transition-all">
+                            <span class="material-symbols-outlined">assignment_add</span>
+                            Cadastro Manual
+                        </button>
+                        <button data-nav="upload" class="nav-link text-left p-4 flex items-center gap-4 hover:bg-secondary-container/10 transition-all">
+                            <span class="material-symbols-outlined">picture_as_pdf</span>
+                            Upload de PDF
+                        </button>
+                        <button data-nav="relatorios" class="nav-link text-left p-4 flex items-center gap-4 hover:bg-secondary-container/10 transition-all">
+                            <span class="material-symbols-outlined">bar_chart</span>
+                            Relatórios
+                        </button>
+                        <button data-nav="assistente-crm" class="nav-link text-left p-4 flex items-center gap-4 hover:bg-secondary-container/10 transition-all">
+                            <span class="material-symbols-outlined">forum</span>
+                            Assistente CRM
+                        </button>
+                    </nav>
+                </div>
+                <div class="p-4 border-t border-white/10">
+                    <button data-action="logout" class="text-secondary-fixed-dim text-left p-3 w-full flex items-center gap-4 hover:bg-secondary-container/10 transition-all rounded-md mt-1">
+                        <span class="material-symbols-outlined">logout</span>
+                        Sair
+                    </button>
+                </div>
+            </aside>
+            <div class="flex flex-col flex-1 min-h-screen">
+                <header class="relative bg-surface-container-lowest shadow-sm flex justify-between items-center w-full px-margin-desktop h-16 sticky top-0 z-30">
+                    <div class="flex items-center gap-4">
+                        <button id="mobile-menu" class="lg:hidden text-on-surface-variant p-2 hover:bg-surface-container-low transition-colors rounded-full">
+                            <span class="material-symbols-outlined">menu</span>
+                        </button>
+                        <div class="flex items-center gap-2">
+                            <img src="assets/spayg4-logo.svg" alt="Logomarca SPAYG4" class="w-10 h-10" />
+                            <div class="text-headline-lg font-headline-lg text-primary tracking-tight">SPAYG4</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button id="notifications-button" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors relative" type="button" aria-label="Notificações">
+                            <span class="material-symbols-outlined">notifications</span>
+                            <span id="notifications-dot" class="hidden absolute top-2 right-2 w-2 h-2 bg-error-red rounded-full border border-white"></span>
+                        </button>
+                        <button id="help-button" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors" type="button" aria-label="Ajuda">
+                            <span class="material-symbols-outlined">help</span>
+                        </button>
+                        <div class="ml-2 w-8 h-8 rounded-full overflow-hidden border border-border-subtle">
+                            <img id="header-avatar" src="assets/avatar-minimalista-admin.svg" alt="Avatar do administrador" class="w-full h-full object-cover" />
+                        </div>
+                        <span id="logged-user" class="hidden md:inline text-label-md text-on-surface-variant"></span>
+                    </div>
+                    <div id="notifications-panel" class="hidden absolute right-6 top-16 z-50 w-[min(380px,calc(100vw-32px))] bg-surface-container-lowest border border-outline-variant rounded-lg shadow-xl p-4">
+                        <div class="flex items-center justify-between border-b border-border-subtle pb-3 mb-3">
+                            <h2 class="font-title-md text-title-md text-on-surface">Notificações</h2>
+                            <span class="material-symbols-outlined text-outline">notifications</span>
+                        </div>
+                        <div id="notifications-list" class="space-y-3 text-body-md text-on-surface-variant"></div>
+                    </div>
+                </header>
+                <main id="screen-container" class="flex-1 bg-background flex justify-center items-start overflow-visible px-4 md:px-8 py-4 md:py-6">
+                    <section id="screen-dashboard" class="screen active">
+                        <div class="w-full space-y-8 px-4 md:px-6 pt-2 pb-6">
+                            <div>
+                                <h1 class="font-headline-xl text-headline-xl text-on-background">Sistema de Leads</h1>
+                                <p class="font-body-lg text-body-lg text-on-surface-variant">Escolha uma opção para continuar</p>
+                            </div>
+                            <div id="dashboard-action-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter items-stretch">
+                                <article class="glass-card rounded-xl p-5 min-h-[230px] flex flex-col justify-between hover:shadow-lg transition-shadow group relative overflow-hidden">
+                                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors"></div>
+                                    <div class="relative z-10 space-y-3">
+                                        <div class="w-12 h-12 rounded-lg bg-primary-container/10 flex items-center justify-center text-primary-container">
+                                            <span class="material-symbols-outlined text-3xl">monitoring</span>
+                                        </div>
+                                        <h3 class="font-title-md text-title-md text-on-background">Painéis Grafana</h3>
+                                        <p class="font-body-md text-body-md text-on-surface-variant">Explore indicadores em tempo real e visualize KPIs críticos diretamente nos dashboards Grafana.</p>
+                                    </div>
+                                    <button data-action="open-grafana" class="relative z-10 w-full bg-primary-container hover:bg-primary text-white py-2 px-4 rounded-md font-label-md flex items-center justify-center gap-2 transition-colors">
+                                        Abrir Grafana
+                                        <span class="material-symbols-outlined">open_in_new</span>
+                                    </button>
+                                </article>
+                                <article class="glass-card rounded-xl p-5 min-h-[230px] flex flex-col justify-between hover:shadow-lg transition-shadow group relative overflow-hidden">
+                                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-success-green/5 rounded-full blur-2xl group-hover:bg-success-green/10 transition-colors"></div>
+                                    <div class="relative z-10 space-y-stack-sm">
+                                        <div class="w-12 h-12 rounded-lg bg-success-green/10 flex items-center justify-center text-success-green">
+                                            <span class="material-symbols-outlined text-3xl">edit_document</span>
+                                        </div>
+                                        <h3 class="font-title-md text-title-md text-on-background">Cadastro Manual</h3>
+                                        <p class="font-body-md text-body-md text-on-surface-variant">Preencha o formulário em etapas detalhadas.</p>
+                                    </div>
+                                    <button data-nav="cadastro-step1" class="relative z-10 w-full border border-border-subtle hover:border-primary text-primary py-2 px-4 rounded-md font-label-md flex items-center justify-center gap-2 bg-surface-card transition-colors">
+                                        Começar
+                                    </button>
+                                </article>
+                                <article class="glass-card rounded-xl p-5 min-h-[230px] flex flex-col justify-between hover:shadow-lg transition-shadow group relative overflow-hidden">
+                                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-warning-amber/5 rounded-full blur-2xl group-hover:bg-warning-amber/10 transition-colors"></div>
+                                    <div class="relative z-10 space-y-stack-sm">
+                                        <div class="w-12 h-12 rounded-lg bg-warning-amber/10 flex items-center justify-center text-warning-amber">
+                                            <span class="material-symbols-outlined text-3xl">upload_file</span>
+                                        </div>
+                                        <h3 class="font-title-md text-title-md text-on-background">Upload de PDF</h3>
+                                        <p class="font-body-md text-body-md text-on-surface-variant">Envie um PDF preenchido manualmente.</p>
+                                    </div>
+                                    <button data-nav="upload" class="relative z-10 w-full border border-border-subtle hover:border-primary text-primary py-2 px-4 rounded-md font-label-md flex items-center justify-center gap-2 bg-surface-card transition-colors">
+                                        Enviar PDF
+                                    </button>
+                                </article>
+                            </div>
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+                                <section class="lg:col-span-2 glass-card rounded-xl overflow-hidden flex flex-col">
+                                    <div class="p-6 border-b border-border-subtle flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-card">
+                                        <div>
+                                            <div class="flex items-center gap-2 mb-1">
+                                                <span class="material-symbols-outlined text-tertiary">analytics</span>
+                                                <h2 class="font-headline-lg text-headline-lg text-on-background">Últimos relatórios</h2>
+                                            </div>
+                                            <p class="font-body-md text-body-md text-on-surface-variant">Confira os relatórios mais recentes gerados pelo time.</p>
+                                        </div>
+                                        <button id="request-report-dashboard" type="button" class="shrink-0 bg-surface-container-low border border-border-subtle hover:bg-surface-container text-on-surface py-2 px-4 rounded-md font-label-md transition-colors flex items-center gap-2">
+                                            <span class="material-symbols-outlined text-[18px]">add_chart</span>
+                                            Solicitar relatório
+                                        </button>
+                                    </div>
+                                    <div class="overflow-x-auto">
+                                        <table class="w-full text-left border-collapse">
+                                            <thead>
+                                                <tr class="bg-surface-bright font-label-md text-label-md text-on-surface-variant border-b border-border-subtle">
+                                                    <th class="py-3 px-6 font-medium">Nome</th>
+                                                    <th class="py-3 px-6 font-medium">Data</th>
+                                                    <th class="py-3 px-6 font-medium">Status</th>
+                                                    <th class="py-3 px-6 font-medium text-right">Ação</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="dashboard-reports-tbody" class="font-body-md text-body-md">
+                                                <tr><td colspan="4" class="py-8 px-6 text-center text-on-surface-variant">Carregando relatórios reais...</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="p-stack-md bg-surface-bright border-t border-border-subtle text-center">
+                                        <button data-nav="relatorios" class="text-primary font-label-md text-label-md hover:underline">Ver todos os relatórios</button>
+                                    </div>
+                                </section>
+                                <section class="glass-card rounded-xl flex flex-col h-full border border-primary/20 shadow-[0_0_20px_rgba(37,99,235,0.05)]">
+                                    <div class="p-stack-md bg-primary-container text-on-primary-container rounded-t-xl flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                                                <span class="material-symbols-outlined text-white text-[18px]">smart_toy</span>
+                                            </div>
+                                            <h3 class="font-title-md text-title-md text-white">Assistente CRM</h3>
+                                        </div>
+                                        <button data-nav="assistente-crm" class="text-white/80 hover:text-white p-1 rounded-full hover:bg-white/10 transition-colors" type="button" aria-label="Abrir Assistente CRM">
+                                            <span class="material-symbols-outlined">open_in_full</span>
+                                        </button>
+                                    </div>
+                                    <div class="flex-1 p-5 flex flex-col gap-4 bg-surface-bright/50">
+                                        <div class="flex-1 flex flex-col items-center justify-center text-center opacity-70">
+                                            <span class="material-symbols-outlined text-4xl text-tertiary mb-2">forum</span>
+                                            <p class="font-body-md text-body-md text-on-surface-variant">Pergunte sobre leads e empresas.</p>
+                                        </div>
+                                    </div>
+                                    <div class="p-5 border-t border-border-subtle bg-surface-card rounded-b-xl flex gap-2">
+                                        <div class="relative flex-1">
+                                            <input id="assistant-input" type="text" placeholder="Digite sua pergunta..." class="w-full bg-surface-bright border border-border-subtle rounded-lg py-2 pl-3 pr-8 text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/15 transition-all placeholder:text-outline-variant" />
+                                            <button class="absolute right-2 top-1/2 -translate-y-1/2 text-outline-variant hover:text-on-surface transition-colors" type="button" id="assistant-clear" aria-label="Limpar campo">
+                                                <span class="material-symbols-outlined text-[16px]">close</span>
+                                            </button>
+                                        </div>
+                                        <button id="assistant-send" class="bg-primary-container text-white px-4 py-2 rounded-lg hover:bg-primary transition-colors flex items-center justify-center gap-1 shadow-sm" type="button">
+                                            <span class="material-symbols-outlined filled">send</span>
+                                            Enviar
+                                        </button>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="screen-assistente-crm" class="screen">
+                        <div class="w-full max-w-5xl mx-auto px-4 md:px-6 pt-2 pb-6">
+                            <div class="bg-surface-card rounded-xl border border-border-subtle shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-3px_rgba(0,0,0,0.05)] overflow-hidden min-h-[620px] flex flex-col">
+                                <header class="p-5 border-b border-border-subtle flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                                    <div>
+                                        <h1 class="font-headline-xl text-headline-xl text-on-background">Assistente CRM</h1>
+                                        <p class="font-body-md text-body-md text-on-surface-variant">Pergunte sobre leads e empresas.</p>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button id="crm-new-chat" class="px-4 py-2 rounded-md border border-border-subtle text-on-surface font-label-md hover:bg-surface-container-low transition-colors flex items-center gap-2" type="button">
+                                            <span class="material-symbols-outlined text-[18px]">add</span>
+                                            Novo chat
+                                        </button>
+                                        <button id="crm-delete-chat" class="px-4 py-2 rounded-md border border-error-red/30 text-error-red font-label-md hover:bg-error-container/30 transition-colors flex items-center gap-2" type="button">
+                                            <span class="material-symbols-outlined text-[18px]">delete</span>
+                                            Excluir chat
+                                        </button>
+                                    </div>
+                                </header>
+                                <div class="flex-1 min-h-0 flex flex-col md:flex-row">
+                                    <aside class="w-full md:w-56 border-b md:border-b-0 md:border-r border-border-subtle bg-surface-container-low p-3">
+                                        <p class="px-2 pb-2 text-label-md text-on-surface-variant">Conversas</p>
+                                        <div id="crm-chat-list" class="flex md:flex-col gap-2 overflow-x-auto"></div>
+                                    </aside>
+                                    <div id="crm-chat-messages" class="flex-1 p-6 flex flex-col gap-4 overflow-y-auto bg-surface-bright/50" aria-live="polite"></div>
+                                </div>
+                                <form id="crm-chat-form" class="p-5 border-t border-border-subtle bg-surface-card flex gap-3">
+                                    <input id="crm-chat-input" class="flex-1 bg-surface-bright border border-border-subtle rounded-lg px-4 py-3 text-body-md focus:outline-none focus:border-primary" type="text" placeholder="Digite sua pergunta..." autocomplete="off" />
+                                    <button class="bg-primary-container text-on-primary px-5 py-3 rounded-lg hover:bg-primary transition-colors flex items-center gap-2 font-label-md" type="submit">
+                                        <span class="material-symbols-outlined">send</span>
+                                        Enviar
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="screen-ajuda" class="screen">
+                        <div class="w-full max-w-5xl mx-auto px-4 md:px-6 pt-2 pb-6">
+                            <div class="bg-surface-card rounded-xl border border-border-subtle shadow-sm p-6 md:p-8">
+                                <h1 class="font-headline-xl text-headline-xl text-on-background mb-2">Como usar o sistema</h1>
+                                <p class="font-body-lg text-body-lg text-on-surface-variant mb-8">Entenda as principais áreas disponíveis para o seu perfil.</p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                    <article class="border border-border-subtle rounded-lg p-5">
+                                        <h2 class="font-title-md text-title-md mb-2">Cadastro Manual</h2>
+                                        <p class="font-body-md text-body-md text-on-surface-variant">Preencha os dados da empresa em três etapas. O sistema valida os campos, consulta o endereço pelo CEP e envia o lead para a camada bronze.</p>
+                                    </article>
+                                    <article class="border border-border-subtle rounded-lg p-5">
+                                        <h2 class="font-title-md text-title-md mb-2">Upload de PDF</h2>
+                                        <p class="font-body-md text-body-md text-on-surface-variant">Selecione ou arraste um PDF preenchido e envie o arquivo para armazenamento na bronze.</p>
+                                    </article>
+                                    <article class="border border-border-subtle rounded-lg p-5">
+                                        <h2 class="font-title-md text-title-md mb-2">Relatórios</h2>
+                                        <p class="font-body-md text-body-md text-on-surface-variant">Usuários de Vendas, Dados e CRM podem solicitar relatórios da própria área e baixar os arquivos reais do bucket.</p>
+                                    </article>
+                                    <article class="border border-border-subtle rounded-lg p-5">
+                                        <h2 class="font-title-md text-title-md mb-2">Notificações</h2>
+                                        <p class="font-body-md text-body-md text-on-surface-variant">A bolinha vermelha aparece quando um lead é cadastrado ou um relatório é criado. Clique no sino para ver e limpar as notificações.</p>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="screen-upload" class="screen">
+                        <div class="w-full max-w-[1200px] mx-auto flex flex-col gap-8 px-4 md:px-6 pt-2 pb-6">
+                            <header>
+                                <h1 class="font-headline-xl text-headline-xl text-on-background">Upload de Arquivo PDF</h1>
+                                <p class="font-body-lg text-body-lg text-on-surface-variant mt-2">Envie um arquivo PDF para armazenamento na bronze.</p>
+                            </header>
+                            <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+                                <div class="lg:col-span-8 flex flex-col gap-6">
+                                    <div class="bg-surface-card rounded-xl p-8 shadow-[0px_1px_3px_rgba(0,0,0,0.05),0px_10px_15px_-3px_rgba(0,0,0,0.05)] border border-border-subtle">
+                                        <div class="border-2 border-dashed border-primary-fixed-dim bg-surface-container-low rounded-xl p-8 flex flex-col items-center justify-center text-center transition-colors hover:bg-surface-container">
+                                            <div class="text-primary bg-primary-container/10 p-4 rounded-full mb-4">
+                                                <span class="material-symbols-outlined filled text-4xl">cloud_upload</span>
+                                            </div>
+                                            <h3 class="font-title-md text-title-md text-on-background mb-2">Arraste e solte o arquivo aqui</h3>
+                                            <p class="font-body-md text-body-md text-on-surface-variant mb-6">ou</p>
+                                            <input id="pdf-file" type="file" accept="application/pdf,.pdf" class="hidden" />
+                                            <p id="selected-pdf-name" class="hidden mt-4 text-body-md text-on-surface-variant"></p>
+                                            <div class="flex gap-4 flex-wrap justify-center">
+                                                <button data-nav="dashboard" class="px-6 py-2 border border-border-subtle rounded-lg font-label-md text-on-surface-variant hover:bg-surface-variant transition-colors" type="button">Cancelar</button>
+                                                <button id="select-pdf" class="px-6 py-2 border border-border-subtle text-on-surface rounded-lg font-label-md hover:bg-surface-container transition-colors" type="button">Selecionar PDF</button>
+                                                <button id="upload-pdf" class="px-6 py-2 bg-primary-container text-on-primary rounded-lg font-label-md hover:bg-primary transition-colors shadow-sm" type="button">Enviar PDF</button>
+                                            </div>
+                                            <p class="font-label-sm text-label-sm text-outline mt-6">Apenas arquivos .pdf</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <aside class="lg:col-span-4">
+                                    <div class="bg-surface-card rounded-xl p-6 shadow-[0px_1px_3px_rgba(0,0,0,0.05),0px_10px_15px_-3px_rgba(0,0,0,0.05)] border border-border-subtle h-full">
+                                        <div class="flex items-center justify-between mb-4">
+                                            <h3 class="font-title-md text-title-md text-on-background">Campos esperados no PDF</h3>
+                                            <span class="material-symbols-outlined text-outline">info</span>
+                                        </div>
+                                        <p class="font-body-md text-body-md text-on-surface-variant mb-6">O PDF preenchido manualmente deve conter todos os campos abaixo, seguindo o mesmo padrão do dataset atual:</p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="badge">cnpj</span>
+                                            <span class="badge">type</span>
+                                            <span class="badge">nome_social</span>
+                                            <span class="badge">nome_comercial</span>
+                                            <span class="badge">status</span>
+                                            <span class="badge">telefone</span>
+                                            <span class="badge">cep</span>
+                                            <span class="badge">uf</span>
+                                            <span class="badge">municipio</span>
+                                            <span class="badge">bairro</span>
+                                            <span class="badge">complemento</span>
+                                            <span class="badge">logradouro</span>
+                                            <span class="badge">valor_patrimonio_liquido</span>
+                                            <span class="badge">data_inicio_situacao</span>
+                                            <span class="badge">data_registro</span>
+                                            <span class="badge">segmento_comercial_estimado</span>
+                                            <span class="badge">elegibilidade_lead_maquininha</span>
+                                            <span class="badge">porte_lead_estimado</span>
+                                        </div>
+                                    </div>
+                                </aside>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="screen-cadastro-step1" class="screen">
+                        <div class="w-full flex flex-col items-center px-4 md:px-6 pt-2 pb-6">
+                            <div class="w-full max-w-4xl flex flex-col gap-8">
+                                <div class="flex flex-col gap-2 border-b border-border-subtle pb-6">
+                                    <h1 class="font-headline-xl text-headline-xl text-on-background">Cadastro Manual</h1>
+                                    <p class="font-body-lg text-body-lg text-on-surface-variant">Preencha o formulário em etapas para registrar um novo lead.</p>
+                                </div>
+                                <div class="bg-surface-card rounded-xl shadow-[0px_1px_3px_rgba(0,0,0,0.05),0px_10px_15px_-3px_rgba(0,0,0,0.05)] border border-border-subtle overflow-hidden">
+                                    <div class="bg-surface-container-lowest px-6 py-6 border-b border-border-subtle">
+                                        <div class="flex items-center justify-between relative">
+                                            <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-surface-variant rounded-full z-0 hidden sm:block"></div>
+                                            <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-primary rounded-full z-0 hidden sm:block" style="width: 15%"></div>
+                                            <div class="flex flex-col items-center gap-2 relative z-10 w-1/3 sm:w-auto">
+                                                <div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md font-bold ring-4 ring-surface-card">1</div>
+                                                <span class="font-label-md text-label-md text-on-surface text-center whitespace-nowrap hidden sm:block">Identificação</span>
+                                            </div>
+                                            <div class="flex flex-col items-center gap-2 relative z-10 w-1/3 sm:w-auto">
+                                                <div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-label-md ring-4 ring-surface-card">2</div>
+                                                <span class="font-label-md text-label-md text-on-surface-variant text-center whitespace-nowrap hidden sm:block">Endereço</span>
+                                            </div>
+                                            <div class="flex flex-col items-center gap-2 relative z-10 w-1/3 sm:w-auto">
+                                                <div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-label-md ring-4 ring-surface-card">3</div>
+                                                <span class="font-label-md text-label-md text-on-surface-variant text-center whitespace-nowrap hidden sm:block">Informações Adicionais</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form class="p-6 md:p-7 space-y-6" id="form-step1">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                                            <div class="flex flex-col gap-1">
+                                                <label class="font-label-md text-label-md text-on-surface-variant">CNPJ *</label>
+                                                <input id="lead-cnpj" type="text" required placeholder="00.000.000/0000-00" class="border border-border-subtle rounded-lg px-3 py-2 bg-surface-container-lowest text-body-md focus:outline-none focus:border-primary focus:ring-0 transition-all" />
+                                            </div>
+                                            <div class="flex flex-col gap-1">
+                                                <label class="font-label-md text-label-md text-on-surface-variant">Tipo *</label>
+                                                <input id="lead-type" type="text" required placeholder="Tipo da empresa" class="border border-border-subtle rounded-lg px-3 py-2 bg-surface-container-lowest text-body-md focus:outline-none focus:border-primary focus:ring-0 transition-all" />
+                                            </div>
+                                            <div class="flex flex-col gap-1 md:col-span-2">
+                                                <label class="font-label-md text-label-md text-on-surface-variant">Razão Social *</label>
+                                                <input id="lead-razao-social" type="text" required placeholder="Razão Social Completa Ltda." class="border border-border-subtle rounded-lg px-3 py-2 bg-surface-container-lowest text-body-md focus:outline-none focus:border-primary focus:ring-0 transition-all" />
+                                            </div>
+                                            <div class="flex flex-col gap-1 md:col-span-2">
+                                                <label class="font-label-md text-label-md text-on-surface-variant">Nome Comercial *</label>
+                                                <input id="lead-nome-comercial" type="text" required placeholder="Nome Fantasia" class="border border-border-subtle rounded-lg px-3 py-2 bg-surface-container-lowest text-body-md focus:outline-none focus:border-primary focus:ring-0 transition-all" />
+                                            </div>
+                                            <div class="flex flex-col gap-1">
+                                                <label class="font-label-md text-label-md text-on-surface-variant">Telefone *</label>
+                                                <input id="lead-telefone" type="tel" required placeholder="(11) 90000-0000" class="border border-border-subtle rounded-lg px-3 py-2 bg-surface-container-lowest text-body-md focus:outline-none focus:border-primary focus:ring-0 transition-all" />
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-between items-center border-t border-border-subtle pt-6">
+                                            <button data-nav="dashboard" type="button" class="text-secondary hover:text-on-surface font-label-md px-4 py-2 rounded-lg transition-colors border border-transparent hover:border-border-subtle">Cancelar</button>
+                                            <button id="next-step1" type="button" class="bg-primary-container text-on-primary font-label-md px-6 py-2.5 rounded-lg shadow-sm hover:bg-primary transition-colors flex items-center gap-2">
+                                                Próximo
+                                                <span class="material-symbols-outlined">arrow_forward</span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="screen-cadastro-step2" class="screen">
+                        <div class="w-full max-w-4xl mx-auto space-y-8 px-4 md:px-6 pt-2 pb-6">
+                            <header>
+                                <h2 class="text-headline-xl font-headline-xl text-on-background mb-2">Cadastro Manual</h2>
+                                <p class="text-body-lg font-body-lg text-on-surface-variant">Preencha o formulário em etapas para registrar um novo lead.</p>
+                            </header>
+                            <div class="bg-surface-card rounded-xl shadow-[0px_1px_3px_rgba(0,0,0,0.05),0px_10px_15px_-3px_rgba(0,0,0,0.05)] border border-border-subtle p-6">
+                                <div class="flex items-center justify-between mb-6 relative">
+                                    <div class="absolute left-0 top-1/2 w-full h-0.5 bg-border-subtle -z-10"></div>
+                                    <div class="absolute left-0 top-1/2 w-1/2 h-0.5 bg-primary -z-10"></div>
+                                    <div class="flex flex-col items-center gap-2 bg-surface-card px-2">
+                                        <div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center">
+                                            <span class="material-symbols-outlined">check</span>
+                                        </div>
+                                        <span class="font-label-md text-label-md text-primary">Identificação</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-2 bg-surface-card px-2">
+                                        <div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container border-2 border-primary flex items-center justify-center font-bold">2</div>
+                                        <span class="font-label-md text-label-md text-on-background font-bold">Endereço</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-2 bg-surface-card px-2">
+                                        <div class="w-8 h-8 rounded-full bg-surface-container-low text-on-surface-variant border border-outline flex items-center justify-center">3</div>
+                                        <span class="font-label-md text-label-md text-on-surface-variant">Info Adicional</span>
+                                    </div>
+                                </div>
+                                <form class="flex flex-col gap-5" id="form-step2">
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+                                        <div class="flex flex-col gap-1 md:col-span-3">
+                                            <label class="font-label-md text-label-md text-on-surface-variant" for="lead-cep">CEP *</label>
+                                            <input id="lead-cep" type="text" required placeholder="00000-000" class="w-full rounded-md px-3 py-2 font-body-md bg-surface-bright text-on-background border border-border-subtle focus:border-primary focus:ring-0" />
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+                                        <div class="flex flex-col gap-1">
+                                            <label class="font-label-md text-label-md text-on-surface-variant">UF *</label>
+                                            <select id="lead-uf" required class="rounded-md px-3 py-2 font-body-md bg-surface-bright text-on-background border border-border-subtle focus:border-primary focus:ring-0">
+                                                <option value="">Selecione</option>
+                                                <option value="SP">SP</option>
+                                                <option value="RJ">RJ</option>
+                                                <option value="MG">MG</option>
+                                            </select>
+                                        </div>
+                                        <div class="flex flex-col gap-1 md:col-span-2">
+                                            <label class="font-label-md text-label-md text-on-surface-variant">Município *</label>
+                                            <input id="lead-municipio" type="text" required placeholder="Cidade" class="rounded-md px-3 py-2 font-body-md bg-surface-bright text-on-background border border-border-subtle focus:border-primary focus:ring-0" />
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+                                        <div class="flex flex-col gap-1">
+                                            <label class="font-label-md text-label-md text-on-surface-variant">Bairro *</label>
+                                            <input id="lead-bairro" type="text" required placeholder="Bairro" class="rounded-md px-3 py-2 font-body-md bg-surface-bright text-on-background border border-border-subtle focus:border-primary focus:ring-0" />
+                                        </div>
+                                        <div class="flex flex-col gap-1">
+                                            <label class="font-label-md text-label-md text-on-surface-variant">Logradouro *</label>
+                                            <input id="lead-logradouro" type="text" required placeholder="Rua, Avenida, etc." class="rounded-md px-3 py-2 font-body-md bg-surface-bright text-on-background border border-border-subtle focus:border-primary focus:ring-0" />
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <label class="font-label-md text-label-md text-on-surface-variant">Complemento <span class="text-secondary-fixed-dim font-normal">(Opcional)</span></label>
+                                        <input id="lead-complemento" type="text" placeholder="Apto, Sala, Bloco" class="rounded-md px-3 py-2 font-body-md bg-surface-bright text-on-background border border-border-subtle focus:border-primary focus:ring-0" />
+                                    </div>
+                                    <div class="flex justify-between gap-4 mt-6 pt-4 border-t border-border-subtle">
+                                        <button id="back-step2" type="button" class="px-6 py-2 rounded-md font-label-md border border-border-subtle bg-surface-bright text-on-surface-variant hover:bg-surface-container-low transition-colors flex items-center gap-2">
+                                            <span class="material-symbols-outlined" style="font-size:18px">arrow_back</span>
+                                            Voltar
+                                        </button>
+                                        <button id="next-step2" type="button" class="px-6 py-2 rounded-md font-label-md bg-primary text-on-primary hover:opacity-90 transition-opacity flex items-center gap-2">
+                                            Próximo
+                                            <span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="screen-cadastro-step3" class="screen">
+                        <div class="w-full max-w-4xl mx-auto space-y-8 px-4 md:px-6 pt-2 pb-6">
+                            <header>
+                                <h1 class="font-headline-xl text-headline-xl text-on-surface">Cadastro Manual</h1>
+                                <p class="font-body-lg text-body-lg text-on-surface-variant mt-unit">Preencha o formulário em etapas para registrar um novo lead.</p>
+                            </header>
+                            <div class="bg-surface-card rounded-xl shadow-sm border border-border-subtle p-gutter">
+                                <div class="mb-6 border-b border-border-subtle pb-6">
+                                    <div class="flex items-center justify-between max-w-3xl mx-auto relative">
+                                        <div class="absolute top-1/2 left-0 w-full h-0.5 bg-border-subtle -z-10 -translate-y-1/2"></div>
+                                        <div class="flex flex-col items-center gap-2 bg-surface-card px-2">
+                                            <div class="w-8 h-8 rounded-full bg-success-green text-white flex items-center justify-center">
+                                                <span class="material-symbols-outlined" style="font-size:18px">check</span>
+                                            </div>
+                                            <span class="font-label-sm text-label-sm text-success-green">Dados Básicos</span>
+                                        </div>
+                                        <div class="flex flex-col items-center gap-2 bg-surface-card px-2">
+                                            <div class="w-8 h-8 rounded-full bg-success-green text-white flex items-center justify-center">
+                                                <span class="material-symbols-outlined" style="font-size:18px">check</span>
+                                            </div>
+                                            <span class="font-label-sm text-label-sm text-success-green">Endereço</span>
+                                        </div>
+                                        <div class="flex flex-col items-center gap-2 bg-surface-card px-2">
+                                            <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-label-md shadow-sm ring-4 ring-primary-fixed">3</div>
+                                            <span class="font-label-sm text-label-sm text-primary font-bold">Informações Adicionais</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form class="space-y-6" id="form-step3">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                                        <div class="flex flex-col gap-unit">
+                                            <label class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-outline" style="font-size:16px">payments</span>
+                                                Patrimônio Líquido
+                                            </label>
+                                            <div class="relative">
+                                                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant font-body-md">R$</span>
+                                                <input id="lead-patrimonio" type="text" placeholder="0,00" class="w-full pl-9 pr-3 py-2 border border-border-subtle rounded-md font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/20 transition-shadow bg-surface-bright outline-none" />
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col gap-unit">
+                                            <label class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-outline" style="font-size:16px">domain</span>
+                                                Segmento Comercial
+                                            </label>
+                                            <div class="relative">
+                                                <select id="lead-segmento" class="w-full pl-3 pr-10 py-2 border border-border-subtle rounded-md font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/20 transition-shadow bg-surface-bright outline-none appearance-none cursor-pointer">
+                                                    <option value="">Selecione um segmento...</option>
+                                                    <option value="tech">Tecnologia</option>
+                                                    <option value="health">Saúde</option>
+                                                    <option value="finance">Finanças</option>
+                                                    <option value="retail">Varejo</option>
+                                                    <option value="automobilistico">Automobilístico</option>
+                                                </select>
+                                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col gap-unit">
+                                            <label class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-outline" style="font-size:16px">event</span>
+                                                Data Início Situação
+                                            </label>
+                                            <input id="lead-data-inicio" type="date" class="w-full pl-3 pr-3 py-2 border border-border-subtle rounded-md font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/20 transition-shadow bg-surface-bright outline-none" />
+                                        </div>
+                                        <div class="flex flex-col gap-unit">
+                                            <label class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-outline" style="font-size:16px">calendar_today</span>
+                                                Data de Registro
+                                            </label>
+                                            <input id="lead-data-registro" type="date" class="w-full pl-3 pr-3 py-2 border border-border-subtle rounded-md font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/20 transition-shadow bg-surface-bright outline-none" />
+                                        </div>
+                                    </div>
+                                     <div class="pt-4 mt-6 border-t border-border-subtle flex justify-between gap-4">
+                                        <button id="back-step3" type="button" class="px-6 py-2 border border-border-subtle rounded-md font-label-md text-on-surface hover:bg-surface-container-low transition-colors flex items-center gap-2">
+                                            <span class="material-symbols-outlined" style="font-size:18px">arrow_back</span>
+                                            Voltar
+                                        </button>
+                                        <button id="submit-lead" type="submit" class="px-6 py-2 bg-success-green hover:bg-success-green/90 text-white rounded-md font-label-md shadow-sm transition-colors flex items-center gap-2">
+                                            Cadastrar Lead
+                                            <span class="material-symbols-outlined" style="font-size:18px">check_circle</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="screen-relatorios" class="screen">
+                        <div class="w-full px-4 md:px-6 pt-2 pb-6">
+                            <div class="max-w-6xl mx-auto space-y-8">
+                                <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                                    <div>
+                                        <h1 class="font-headline-xl text-headline-xl text-on-background mb-1">Relatórios Gerados</h1>
+                                        <p class="font-body-md text-body-md text-on-surface-variant">View, download e gerencie seus relatórios.</p>
+                                    </div>
+                                    <button id="request-report" type="button" class="bg-primary-container text-on-primary px-5 py-2.5 rounded-lg font-label-md flex items-center gap-2 hover:bg-surface-tint shadow-sm transition-all">
+                                        <span class="material-symbols-outlined">add_chart</span>
+                                        Gerar relatório
+                                    </button>
+                                </header>
+                                <div class="bg-surface-card rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-3px_rgba(0,0,0,0.05)] overflow-hidden border border-border-subtle">
+                                    <div class="p-6 border-b border-border-subtle bg-surface-bright flex flex-col lg:flex-row gap-4 items-center justify-between">
+                                        <div class="relative w-full lg:w-1/3">
+                                            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+                                            <input id="reports-search" type="text" placeholder="Pesquisar relatórios" class="w-full pl-10 pr-4 py-2 border border-border-subtle rounded-lg font-body-md focus:outline-none focus:border-primary-container focus:shadow-[0_0_0_3px_rgba(37,99,235,0.15)] transition-all bg-white" />
+                                        </div>
+                                        <div class="flex w-full lg:w-auto gap-4">
+                                            <div class="relative flex-1 lg:flex-none">
+                                                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">calendar_today</span>
+                                                <select id="reports-date-filter" class="w-full pl-9 pr-8 py-2 border border-border-subtle rounded-lg font-body-md focus:outline-none focus:border-primary-container focus:shadow-[0_0_0_3px_rgba(37,99,235,0.15)] transition-all bg-white text-on-surface">
+                                                    <option value="all">Todos os períodos</option>
+                                                    <option value="7">Últimos 7 dias</option>
+                                                    <option value="30">Últimos 30 dias</option>
+                                                    <option value="90">Este trimestre</option>
+                                                </select>
+                                                <span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-outline pointer-events-none">arrow_drop_down</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="overflow-x-auto">
+                                        <table class="w-full text-left border-collapse">
+                                            <thead>
+                                                <tr class="bg-surface-container-low border-b border-border-subtle">
+                                                    <th class="py-3 px-gutter font-label-md text-label-md text-tertiary uppercase tracking-wider">Nome do relatório</th>
+                                                    <th class="py-3 px-gutter font-label-md text-label-md text-tertiary uppercase tracking-wider">Data</th>
+                                                    <th class="py-3 px-gutter font-label-md text-label-md text-tertiary uppercase tracking-wider">Status</th>
+                                                    <th class="py-3 px-gutter font-label-md text-label-md text-tertiary uppercase tracking-wider text-right">Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="reports-tbody" class="divide-y divide-border-subtle font-body-md text-body-md text-on-surface">
+                                                <tr><td colspan="4" class="py-8 px-gutter text-center text-on-surface-variant">Carregando relatórios reais...</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="px-gutter py-4 border-t border-border-subtle bg-surface-bright text-body-md text-on-surface-variant flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                                        <span id="reports-count">Relatórios carregados do bucket.</span>
+                                        <div id="reports-pagination" class="flex items-center justify-end gap-2" aria-label="Paginação dos relatórios"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="screen-solicitar-relatorio" class="screen hidden">
+                        <div class="w-full max-w-4xl mx-auto space-y-8 px-4 md:px-6 pt-2 pb-6">
+                            <form id="form-relatorio">
+                                <!--
+                                    <div>
+                                        <label class="block text-label-md font-label-md text-on-surface-variant mb-unit">Título do relatório <span class="text-error-red">*</span></label>
+                                        <input type="text" required placeholder="Ex.: Performance de Leads - Q3" class="w-full border border-border-subtle rounded-md px-4 py-2 text-body-md focus:border-primary-container focus:ring-0 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.15)] transition-shadow bg-surface-bright" />
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                                        <div>
+                                            <label class="block text-label-md font-label-md text-on-surface-variant mb-unit">Categoria de dados <span class="text-error-red">*</span></label>
+                                            <div class="relative">
+                                                <select required class="w-full border border-border-subtle rounded-md px-4 py-2 text-body-md focus:border-primary-container focus:ring-0 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.15)] transition-shadow bg-surface-bright appearance-none">
+                                                    <option value="">Selecione...</option>
+                                                    <option value="leads">Leads</option>
+                                                    <option value="conversions">Conversões</option>
+                                                    <option value="regional">Performance regional</option>
+                                                </select>
+                                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline">expand_more</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-label-md font-label-md text-on-surface-variant mb-stack-sm">Relatório de todo o período?</label>
+                                            <div class="flex gap-4">
+                                                <label class="flex items-center gap-2 cursor-pointer">
+                                                    <input type="radio" name="full-period" value="nao" class="text-primary-container border-outline focus:ring-primary-container" id="full-period-no" checked />
+                                                    <span class="text-body-md">Não</span>
+                                                </label>
+                                                <label class="flex items-center gap-2 cursor-pointer">
+                                                    <input type="radio" name="full-period" value="sim" class="text-primary-container border-outline focus:ring-primary-container" id="full-period-yes" />
+                                                    <span class="text-body-md">Sim</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                                        <div>
+                                            <label class="block text-label-md font-label-md text-on-surface-variant mb-unit">Data inicial <span class="text-error-red">*</span></label>
+                                            <input id="report-start-date" type="date" required class="w-full border border-border-subtle rounded-md px-4 py-2 text-body-md focus:border-primary-container focus:ring-0 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.15)] transition-shadow bg-surface-bright" />
+                                        </div>
+                                        <div>
+                                            <label class="block text-label-md font-label-md text-on-surface-variant mb-unit">Data final <span class="text-error-red">*</span></label>
+                                            <input id="report-end-date" type="date" required class="w-full border border-border-subtle rounded-md px-4 py-2 text-body-md focus:border-primary-container focus:ring-0 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.15)] transition-shadow bg-surface-bright" />
+                                        </div>
+                                    </div>
+                                    <div class="border border-border-subtle rounded-lg bg-surface-container-lowest">
+                                        <button type="button" class="w-full flex justify-between items-center p-4 hover:bg-surface-container-low transition-colors rounded-t-lg" onclick="document.getElementById('advancedFilters').classList.toggle('hidden')">
+                                            <span class="text-title-md font-title-md text-on-surface">Filtros avançados</span>
+                                            <span class="material-symbols-outlined text-outline">tune</span>
+                                        </button>
+                                        <div id="advancedFilters" class="p-4 border-t border-border-subtle space-y-stack-md hidden">
+                                            <div>
+                                                <label class="block text-label-md font-label-md text-on-surface-variant mb-stack-sm">Status do lead</label>
+                                                <div class="flex flex-wrap gap-2">
+                                                    <label class="chip">
+                                                        <input type="checkbox" class="hidden" />
+                                                        <span>Novos</span>
+                                                    </label>
+                                                    <label class="chip chip-active">
+                                                        <input type="checkbox" class="hidden" checked />
+                                                        <span>Contactados</span>
+                                                    </label>
+                                                    <label class="chip chip-active">
+                                                        <input type="checkbox" class="hidden" checked />
+                                                        <span>Qualificados</span>
+                                                    </label>
+                                                    <label class="chip">
+                                                        <input type="checkbox" class="hidden" />
+                                                        <span>Perdidos</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="block text-label-md font-label-md text-on-surface-variant mb-unit">Regiões específicas</label>
+                                                <select multiple size="3" class="w-full border border-border-subtle rounded-md px-4 py-2 text-body-md focus:border-primary-container focus:ring-0 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.15)] transition-shadow bg-surface-bright">
+                                                    <option value="na">América do Norte</option>
+                                                    <option value="emea">EMEA</option>
+                                                    <option value="apac">APAC</option>
+                                                    <option value="latam">LATAM</option>
+                                                </select>
+                                                <p class="text-label-sm text-outline mt-1">Use CTRL / CMD para selecionar múltiplos.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                -->
+                                    <div>
+                                        <button type="submit" class="px-6 py-2 rounded-md bg-primary-container text-on-primary font-title-md hover:bg-surface-tint shadow-sm transition-colors flex items-center gap-2">
+                                            <span class="material-symbols-outlined">analytics</span>
+                                            Gerar relatório
+                                        </button>
+                                    </div>
+                                </form>
+                        </div>
+                    </section>
+                </main>
+            </div>
+        </div>
+    </template>
+
+    <div id="toast" role="status" aria-live="polite" style="top:72px;right:16px;" class="fixed z-[100] bg-success-green text-on-primary px-4 py-2 rounded-md shadow-lg opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+    <script>
+        const appState = {
+            currentScreen: 'login',
+            screens: {},
+            initialized: false,
+            user: null,
+            notifications: []
+        };
+
+        const API_BASE_URL = `http://${window.location.hostname}:5000`;
+        const AUTH_STORAGE_KEY = 'spayg4_prototype_auth';
+        let reportsCache = [];
+        let currentReportsPage = 1;
+        const REPORTS_PAGE_SIZE = 5;
+
+        function getStoredUser() {
+            try {
+                return JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY) || 'null');
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function isAdmin() {
+            return appState.user?.username === 'admin' || appState.user?.area === 'Administrador';
+        }
+
+        function getReportRole() {
+            const user = appState.user;
+            if (!user) return null;
+            if (user.username === 'vendas' || user.area === 'Vendas') return 'vendas';
+            if (user.username === 'dados' || user.area === 'Dados') return 'dados';
+            if (user.username === 'crmclientes' || user.area === 'CRM Clientes') return 'crm';
+            if (user.username === 'crmleads' || user.area === 'CRM Leads') return 'crmleads';
+            return null;
+        }
+
+        async function apiRequest(path, options = {}) {
+            const response = await fetch(`${API_BASE_URL}${path}`, options);
+            const contentType = response.headers.get('content-type') || '';
+            const data = contentType.includes('application/json')
+                ? await response.json()
+                : await response.text();
+            if (!response.ok) {
+                throw new Error(data?.message || data || 'Falha na comunicação com a API.');
+            }
+            return data;
+        }
+
+        const badgeStyle = document.createElement('style');
+        badgeStyle.textContent = `
+            .badge { background: #f3f4f5; border: 1px solid #E2E8F0; color: #434655; font-size: 0.75rem; font-weight: 500; padding: 0.375rem 0.75rem; border-radius: 0.5rem; }
+            .chip { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.25rem 0.75rem; border-radius: 9999px; border: 1px solid #E2E8F0; background: #ffffff; color: #434655; cursor: pointer; transition: all 0.2s ease; }
+            .chip:hover { border-color: #2563eb; background: rgba(37, 99, 235, 0.08); }
+            .chip-active { border-color: #2563eb; background: rgba(37, 99, 235, 0.12); color: #2563eb; font-weight: 600; }
+        `;
+        document.head.appendChild(badgeStyle);
+
+        const shellTemplate = document.getElementById('shell-template');
+        const shellContainer = document.getElementById('shell');
+
+        const passwordToggle = document.getElementById('toggle-password');
+        if (passwordToggle) {
+            passwordToggle.addEventListener('click', () => {
+                const passwordInput = document.getElementById('login-password');
+                const icon = passwordToggle.querySelector('.material-symbols-outlined');
+                const showing = passwordInput.type === 'text';
+                passwordInput.type = showing ? 'password' : 'text';
+                passwordToggle.setAttribute('aria-label', showing ? 'Mostrar senha' : 'Ocultar senha');
+                if (icon) icon.textContent = showing ? 'visibility_off' : 'visibility';
+            });
+        }
+
+        function injectShell() {
+            if (appState.initialized) return;
+            shellContainer.innerHTML = shellTemplate.innerHTML;
+            shellContainer.classList.remove('hidden');
+            shellContainer.classList.add('flex');
+            const screens = ['dashboard', 'assistente-crm', 'ajuda', 'upload', 'cadastro-step1', 'cadastro-step2', 'cadastro-step3', 'relatorios'];
+            screens.forEach((id) => {
+                appState.screens[id] = document.getElementById(`screen-${id}`);
+            });
+            bindNavigation();
+            applyPermissions();
+            bindHeaderActions();
+            appState.initialized = true;
+        }
+
+        function getNotificationOwner() {
+            return appState.user?.username?.trim().toLowerCase() || null;
+        }
+
+        function resetNotifications() {
+            appState.notifications = [];
+            document.getElementById('notifications-dot')?.classList.add('hidden');
+            document.getElementById('notifications-panel')?.classList.add('hidden');
+            renderNotifications();
+        }
+
+        function addNotification(message, owner = getNotificationOwner()) {
+            if (!owner) return;
+            // store notification without sensitive names -- message should be generic
+            appState.notifications.push({ owner, message, createdAt: new Date().toISOString() });
+            const dot = document.getElementById('notifications-dot');
+            if (dot) dot.classList.remove('hidden');
+            renderNotifications();
+        }
+
+        function renderNotifications() {
+            const list = document.getElementById('notifications-list');
+            if (!list) return;
+            const owner = getNotificationOwner();
+            const userNotifications = appState.notifications.filter((item) => item.owner === owner);
+            list.innerHTML = userNotifications.length
+                ? userNotifications.map((item) => `
+                    <div class="border border-border-subtle rounded-md bg-surface-bright px-3 py-3">
+                        <span class="material-symbols-outlined text-primary align-middle mr-1 text-[18px]">info</span>
+                        ${item.message}
+                    </div>
+                `).join('')
+                : '<p class="text-body-md text-on-surface-variant">Nenhuma notificação nova.</p>';
+        }
+
+        function bindHeaderActions() {
+            const notificationButton = document.getElementById('notifications-button');
+            const helpButton = document.getElementById('help-button');
+            let notificationsAutoCloseTimer = null;
+            if (notificationButton) {
+                notificationButton.addEventListener('click', () => {
+                    const panel = document.getElementById('notifications-panel');
+                    renderNotifications();
+                    const isHidden = panel?.classList.toggle('hidden');
+                    // hide dot immediately
+                    document.getElementById('notifications-dot')?.classList.add('hidden');
+                    // if panel is now visible, auto-close after 7s
+                    if (!panel.classList.contains('hidden')) {
+                        clearTimeout(notificationsAutoCloseTimer);
+                        notificationsAutoCloseTimer = setTimeout(() => {
+                            panel.classList.add('hidden');
+                        }, 7000);
+                    } else {
+                        clearTimeout(notificationsAutoCloseTimer);
+                    }
+                });
+            }
+            if (helpButton) helpButton.addEventListener('click', () => showScreen('ajuda'));
+        }
+
+        function setHidden(element, hidden) {
+            if (element) element.classList.toggle('hidden', hidden);
+        }
+
+        function getAvatarPath() {
+            const avatars = {
+                admin: 'assets/avatar-minimalista-admin.svg',
+                'CRM Clientes': 'assets/avatar-clientes.svg',
+                Dados: 'assets/avatar-dados.svg',
+                'CRM Leads': 'assets/avatar-leads.svg',
+                Vendas: 'assets/avatar-vendas.svg',
+            };
+            return avatars[appState.user?.area] || avatars.admin;
+        }
+
+        function updateUserAvatar() {
+            const avatarPath = getAvatarPath();
+            ['sidebar-avatar', 'header-avatar'].forEach((id) => {
+                const avatar = document.getElementById(id);
+                if (avatar) {
+                    avatar.src = avatarPath;
+                    avatar.alt = `Avatar de ${appState.user?.area || 'administrador'}`;
+                }
+            });
+            const loggedUser = document.getElementById('logged-user');
+            if (loggedUser) {
+                loggedUser.textContent = appState.user?.username || '';
+                loggedUser.title = appState.user?.area || '';
+            }
+        }
+
+        function applyPermissions() {
+            const admin = isAdmin();
+            const reportLinks = shellContainer.querySelectorAll('[data-nav="relatorios"]');
+            const assistantLinks = shellContainer.querySelectorAll('[data-nav="assistente-crm"]');
+            const grafanaButton = shellContainer.querySelector('[data-action="open-grafana"]');
+            const reportScreen = document.getElementById('screen-relatorios');
+            const assistantScreen = document.getElementById('screen-assistente-crm');
+            const grafanaCard = grafanaButton?.closest('article');
+            const reportSection = document.querySelector('#screen-dashboard [data-nav="relatorios"]')?.closest('section');
+            const assistantSection = document.querySelector('#screen-dashboard [data-nav="assistente-crm"]')?.closest('section');
+
+            reportLinks.forEach((link) => setHidden(link, admin));
+            assistantLinks.forEach((link) => setHidden(link, admin));
+            setHidden(reportScreen, admin);
+            setHidden(assistantScreen, admin);
+            setHidden(grafanaCard, !admin);
+            setHidden(reportSection, admin);
+            setHidden(assistantSection, admin);
+            const actionGrid = document.getElementById('dashboard-action-grid');
+            if (actionGrid) {
+                actionGrid.classList.toggle('lg:grid-cols-3', admin);
+                actionGrid.classList.toggle('lg:grid-cols-2', !admin);
+            }
+            updateUserAvatar();
+        }
+
+        function showToast(message, type = 'info', title = '') {
+            const toast = document.getElementById('toast');
+            if (!toast) return;
+            // adjust appearance by type (success -> green, error -> red, info -> neutral)
+            toast.textContent = message;
+            toast.classList.remove('opacity-0');
+            toast.classList.add('opacity-100');
+            toast.classList.remove('bg-primary', 'bg-success-green', 'bg-error-red');
+            if (type === 'success') toast.classList.add('bg-success-green');
+            else if (type === 'error') toast.classList.add('bg-error-red');
+            else toast.classList.add('bg-primary');
+            clearTimeout(window.toastTimeout);
+            // keep toast visible for 7 seconds as requested
+            window.toastTimeout = setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                toast.classList.add('opacity-0');
+            }, 7000);
+        }
+
+        function updateNavActive(target) {
+            const links = shellContainer.querySelectorAll('.nav-link');
+            links.forEach((link) => {
+                const isActive = link.dataset.nav === target;
+                link.classList.toggle('bg-primary-container', isActive);
+                link.classList.toggle('text-on-primary-container', isActive);
+                link.classList.toggle('border-l-4', isActive);
+                link.classList.toggle('border-primary-fixed', isActive);
+            });
+        }
+
+        function showScreen(id) {
+            if (id === 'relatorios' && isAdmin()) {
+                showToast('O usuário administrador não possui acesso a relatórios.');
+                return;
+            }
+            if (id === 'assistente-crm' && isAdmin()) {
+                showToast('O Assistente CRM não está disponível para o administrador.');
+                return;
+            }
+            if (id === appState.currentScreen) return;
+
+            if (id === 'login') {
+                document.getElementById('screen-login').classList.add('active');
+                shellContainer.classList.add('hidden');
+                shellContainer.classList.remove('flex');
+            } else {
+                if (!appState.initialized) injectShell();
+                document.getElementById('screen-login').classList.remove('active');
+                shellContainer.classList.remove('hidden');
+                shellContainer.classList.add('flex');
+                Object.entries(appState.screens).forEach(([key, element]) => {
+                    if (!element) return;
+                    element.classList.toggle('active', key === id);
+                    element.classList.toggle('screen', true);
+                });
+                updateNavActive(id);
+            }
+
+            appState.currentScreen = id;
+        }
+
+        function resetCadastroFlow() {
+            const forms = ['form-step1', 'form-step2', 'form-step3'];
+            forms.forEach((formId) => {
+                const form = document.getElementById(formId);
+                if (form) form.reset();
+            });
+        }
+
+        function validateLeadFields(fieldIds, message) {
+            const fields = fieldIds.map((id) => document.getElementById(id)).filter(Boolean);
+            const missingField = fields.find((field) => !field.value.trim());
+            if (missingField) {
+                missingField.focus();
+                showToast(message);
+                return false;
+            }
+            return true;
+        }
+
+        function validateLeadStep1() {
+            if (!validateLeadFields(
+                ['lead-cnpj', 'lead-type', 'lead-razao-social', 'lead-nome-comercial', 'lead-telefone'],
+                'Preencha todos os campos obrigatórios da identificação.',
+            )) return false;
+            const cnpj = document.getElementById('lead-cnpj').value.replace(/\D/g, '');
+            const phone = document.getElementById('lead-telefone').value.replace(/\D/g, '');
+            if (cnpj.length !== 14) {
+                showToast('O CNPJ deve conter 14 dígitos.');
+                document.getElementById('lead-cnpj').focus();
+                return false;
+            }
+            if (![10, 11].includes(phone.length)) {
+                showToast('Informe um telefone válido com DDD.');
+                document.getElementById('lead-telefone').focus();
+                return false;
+            }
+            return true;
+        }
+
+        function validateLeadStep2() {
+            if (!validateLeadFields(
+                ['lead-cep', 'lead-uf', 'lead-municipio', 'lead-bairro', 'lead-logradouro'],
+                'Preencha todos os campos obrigatórios do endereço.',
+            )) return false;
+            const cep = document.getElementById('lead-cep').value.replace(/\D/g, '');
+            if (cep.length !== 8) {
+                showToast('O CEP deve conter 8 dígitos.');
+                document.getElementById('lead-cep').focus();
+                return false;
+            }
+            return true;
+        }
+
+        function setupLeadMasks() {
+            const cnpj = document.getElementById('lead-cnpj');
+            const phone = document.getElementById('lead-telefone');
+            const cep = document.getElementById('lead-cep');
+            const uf = document.getElementById('lead-uf');
+            const patrimonio = document.getElementById('lead-patrimonio');
+
+            if (cnpj) cnpj.addEventListener('input', () => {
+                const digits = cnpj.value.replace(/\D/g, '').slice(0, 14);
+                cnpj.value = digits.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{0,2}).*/, '$1.$2.$3/$4-$5');
+            });
+            if (phone) phone.addEventListener('input', () => {
+                const digits = phone.value.replace(/\D/g, '').slice(0, 11);
+                phone.value = digits.length > 10
+                    ? digits.replace(/^(\d{2})(\d{5})(\d{0,4}).*/, '($1) $2-$3')
+                    : digits.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+            });
+            if (cep) {
+                cep.addEventListener('input', () => {
+                    const digits = cep.value.replace(/\D/g, '').slice(0, 8);
+                    cep.value = digits.replace(/^(\d{5})(\d{0,3}).*/, '$1-$2');
+                });
+                cep.addEventListener('blur', async () => {
+                    const digits = cep.value.replace(/\D/g, '');
+                    if (digits.length !== 8) return;
+                    try {
+                        const response = await fetch(`https://viacep.com.br/ws/${digits}/json/`);
+                        const data = await response.json();
+                        if (data.erro) return;
+                        document.getElementById('lead-logradouro').value = data.logradouro || '';
+                        document.getElementById('lead-bairro').value = data.bairro || '';
+                        document.getElementById('lead-municipio').value = data.localidade || '';
+                        document.getElementById('lead-uf').value = data.uf || '';
+                    } catch (error) {
+                        showToast('Não foi possível consultar o CEP.');
+                    }
+                });
+            }
+            if (uf) uf.addEventListener('input', () => {
+                uf.value = uf.value.replace(/[^a-zA-Z]/g, '').toUpperCase().slice(0, 2);
+            });
+            if (patrimonio) patrimonio.addEventListener('input', () => {
+                const digits = patrimonio.value.replace(/\D/g, '');
+                patrimonio.value = digits ? (Number(digits) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : '';
+            });
+        }
+
+        function getReportConfig() {
+            const configs = {
+                vendas: { request: '/relatorios/solicitar', list: '/relatorios/listar' },
+                dados: { request: '/relatorios/dados/solicitar', list: '/relatorios/dados/listar' },
+                crm: { request: '/relatorios/crm/solicitar', list: '/relatorios/crm/listar' },
+                crmleads: { request: '/relatorios/crm-leads/solicitar', list: '/relatorios/crm-leads/listar' },
+            };
+            return configs[getReportRole()];
+        }
+
+        function renderReportRows(target, reports) {
+            if (!target) return;
+            if (!reports.length) {
+                target.innerHTML = '<tr><td colspan="4" class="py-8 px-gutter text-center text-on-surface-variant">Nenhum relatório encontrado.</td></tr>';
+                return;
+            }
+            target.innerHTML = reports.map((report) => `
+                <tr class="hover:bg-surface-container-lowest transition-colors">
+                    <td class="py-4 px-gutter font-medium">${report.name || report.key || 'Relatório'}</td>
+                    <td class="py-4 px-gutter text-on-surface-variant">${report.last_modified ? new Date(report.last_modified).toLocaleString('pt-BR') : 'Data desconhecida'}</td>
+                    <td class="py-4 px-gutter"><span class="inline-flex items-center px-2.5 py-1 rounded-full bg-success-green/10 text-success-green font-label-sm">Disponível</span></td>
+                    <td class="py-4 px-gutter text-right"><a class="text-primary hover:underline font-label-md" href="${report.url}" target="_blank" rel="noopener">Baixar</a></td>
+                </tr>
+            `).join('');
+        }
+
+        function applyReportFilters() {
+            const search = (document.getElementById('reports-search')?.value || '').trim().toLowerCase();
+            const dateFilter = document.getElementById('reports-date-filter')?.value || 'all';
+            const now = Date.now();
+            const periods = { '7': 7, '30': 30, '90': 90 };
+            const cutoff = periods[dateFilter] ? now - periods[dateFilter] * 86400000 : null;
+            const filtered = reportsCache.filter((report) => {
+                const name = `${report.name || ''} ${report.key || ''}`.toLowerCase();
+                const timestamp = report.last_modified ? new Date(report.last_modified).getTime() : 0;
+                return (!search || name.includes(search)) && (!cutoff || timestamp >= cutoff);
+            });
+            const totalPages = Math.max(1, Math.ceil(filtered.length / REPORTS_PAGE_SIZE));
+            currentReportsPage = Math.min(currentReportsPage, totalPages);
+            const start = (currentReportsPage - 1) * REPORTS_PAGE_SIZE;
+            renderReportRows(document.getElementById('reports-tbody'), filtered.slice(start, start + REPORTS_PAGE_SIZE));
+            const count = document.getElementById('reports-count');
+            if (count) count.textContent = `Exibindo ${filtered.length ? start + 1 : 0}–${Math.min(start + REPORTS_PAGE_SIZE, filtered.length)} de ${filtered.length} resultado(s); ${reportsCache.length} relatório(s) no bucket.`;
+            renderReportsPagination(totalPages);
+        }
+
+        function renderReportsPagination(totalPages) {
+            const pagination = document.getElementById('reports-pagination');
+            if (!pagination) return;
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            pagination.innerHTML = `
+                <button type="button" data-reports-page="${currentReportsPage - 1}" ${currentReportsPage === 1 ? 'disabled' : ''} class="px-3 py-1 rounded border border-border-subtle text-on-surface hover:bg-surface-container-low disabled:opacity-50 disabled:cursor-not-allowed">Anterior</button>
+                <span class="px-2">Página ${currentReportsPage} de ${totalPages}</span>
+                <button type="button" data-reports-page="${currentReportsPage + 1}" ${currentReportsPage === totalPages ? 'disabled' : ''} class="px-3 py-1 rounded border border-border-subtle text-on-surface hover:bg-surface-container-low disabled:opacity-50 disabled:cursor-not-allowed">Próxima</button>
+            `;
+        }
+
+        function renderReports(reports) {
+            reportsCache = reports;
+            currentReportsPage = 1;
+            const tbody = document.getElementById('reports-tbody');
+            const dashboardTbody = document.getElementById('dashboard-reports-tbody');
+            renderReportRows(dashboardTbody, reports.slice(0, REPORTS_PAGE_SIZE));
+            applyReportFilters();
+            const count = document.getElementById('reports-count');
+            if (count && !reports.length) count.textContent = 'Nenhum relatório encontrado no bucket.';
+        }
+
+        async function loadReports() {
+            const config = getReportConfig();
+            if (!config || !appState.user) return;
+            try {
+                const result = await apiRequest(config.list, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(appState.user),
+                });
+                renderReports(result.reports || []);
+            } catch (error) {
+                showToast(error.message);
+                renderReports([]);
+            }
+        }
+
+        async function requestReport() {
+            if (isAdmin()) {
+                showToast('O usuário administrador não pode gerar relatórios.');
+                return;
+            }
+            const notificationOwner = getNotificationOwner();
+            const config = getReportConfig();
+            if (!config) return;
+            showToast('Solicitando relatório...', 'info');
+            try {
+                const result = await apiRequest(config.request, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(appState.user),
+                });
+                showToast('A solicitação foi enviada e o relatório está sendo criado.', 'success');
+                setTimeout(() => {
+                    // do not expose report name in notifications
+                    const message = 'Relatório criado com sucesso. Vá para a página de Relatórios para acessá-lo.';
+                    addNotification(message, notificationOwner);
+                    showToast(message, 'success', 'Relatório criado');
+                }, 1800);
+                await loadReports();
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+
+        function bindNavigation() {
+            shellContainer.querySelectorAll('[data-nav]').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    const target = btn.dataset.nav;
+                    if (target === 'cadastro-step1') {
+                        resetCadastroFlow();
+                    }
+                    showScreen(target);
+                    if (target === 'relatorios') loadReports();
+                });
+            });
+
+            const logoutBtn = shellContainer.querySelector('[data-action="logout"]');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', () => {
+                    resetCadastroFlow();
+                    appState.user = null;
+                    resetNotifications();
+                    localStorage.removeItem(AUTH_STORAGE_KEY);
+                    showScreen('login');
+                    document.getElementById('login-password').value = '';
+                    appState.initialized = false;
+                    appState.screens = {};
+                    shellContainer.innerHTML = '';
+                    shellContainer.classList.add('hidden');
+                    shellContainer.classList.remove('flex');
+                    showToast('Sessão encerrada.');
+                });
+            }
+
+            const nextStep1 = document.getElementById('next-step1');
+            if (nextStep1) nextStep1.addEventListener('click', () => {
+                if (validateLeadStep1()) showScreen('cadastro-step2');
+            });
+
+            const backStep2 = document.getElementById('back-step2');
+            if (backStep2) backStep2.addEventListener('click', () => showScreen('cadastro-step1'));
+
+            const nextStep2 = document.getElementById('next-step2');
+            if (nextStep2) nextStep2.addEventListener('click', () => {
+                if (validateLeadStep2()) showScreen('cadastro-step3');
+            });
+
+            const backStep3 = document.getElementById('back-step3');
+            if (backStep3) backStep3.addEventListener('click', () => showScreen('cadastro-step2'));
+
+            const submitLead = document.getElementById('submit-lead');
+            if (submitLead) {
+                submitLead.addEventListener('click', async (event) => {
+                    event.preventDefault();
+                    if (!validateLeadStep1() || !validateLeadStep2()) return;
+                    const notificationOwner = getNotificationOwner();
+                    const payload = {
+                        cnpj: document.getElementById('lead-cnpj').value,
+                        type: document.getElementById('lead-type').value,
+                        nomeSocial: document.getElementById('lead-razao-social').value,
+                        nomeComercial: document.getElementById('lead-nome-comercial').value,
+                        telefone: document.getElementById('lead-telefone').value,
+                        cep: document.getElementById('lead-cep').value,
+                        uf: document.getElementById('lead-uf').value,
+                        municipio: document.getElementById('lead-municipio').value,
+                        bairro: document.getElementById('lead-bairro').value,
+                        logradouro: document.getElementById('lead-logradouro').value,
+                        complemento: document.getElementById('lead-complemento').value,
+                        patrimonioLiquido: document.getElementById('lead-patrimonio').value,
+                        segmentoComercial: document.getElementById('lead-segmento').value,
+                        dataInicioSituacao: document.getElementById('lead-data-inicio').value,
+                        dataRegistro: document.getElementById('lead-data-registro').value,
+                    };
+                    try {
+                        const result = await apiRequest('/leads', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload),
+                        });
+                        resetCadastroFlow();
+                        showScreen('dashboard');
+                        // don't include lead/report names in notification messages
+                        const message = 'Lead cadastrado com sucesso.';
+                        addNotification(message, notificationOwner);
+                        showToast(message, 'success', 'Lead cadastrado');
+                    } catch (error) {
+                        showToast(error.message, 'error');
+                    }
+                });
+            }
+
+            const selectPdf = document.getElementById('select-pdf');
+            const pdfFile = document.getElementById('pdf-file');
+            const uploadPdf = document.getElementById('upload-pdf');
+            const pdfDropZone = document.getElementById('screen-upload')?.querySelector('.border-dashed');
+            const selectedPdfName = document.getElementById('selected-pdf-name');
+            function setSelectedPdf(file) {
+                if (!file) return;
+                if (!file.name.toLowerCase().endsWith('.pdf')) {
+                    showToast('Envie um arquivo no formato PDF.');
+                    return;
+                }
+                const transfer = new DataTransfer();
+                transfer.items.add(file);
+                pdfFile.files = transfer.files;
+                selectedPdfName.textContent = `Arquivo selecionado: ${file.name}`;
+                selectedPdfName.classList.remove('hidden');
+            }
+            if (selectPdf && pdfFile) selectPdf.addEventListener('click', () => pdfFile.click());
+            if (pdfFile) pdfFile.addEventListener('change', () => setSelectedPdf(pdfFile.files?.[0]));
+            if (pdfDropZone) {
+                pdfDropZone.addEventListener('dragover', (event) => {
+                    event.preventDefault();
+                    pdfDropZone.classList.add('bg-surface-container');
+                });
+                pdfDropZone.addEventListener('dragleave', () => pdfDropZone.classList.remove('bg-surface-container'));
+                pdfDropZone.addEventListener('drop', (event) => {
+                    event.preventDefault();
+                    pdfDropZone.classList.remove('bg-surface-container');
+                    setSelectedPdf(event.dataTransfer.files?.[0]);
+                });
+            }
+            if (uploadPdf && pdfFile) {
+                uploadPdf.addEventListener('click', async () => {
+                    const file = pdfFile.files?.[0];
+                    if (!file) {
+                        showToast('Selecione um arquivo PDF antes de enviar.');
+                        return;
+                    }
+                    if (!file.name.toLowerCase().endsWith('.pdf')) {
+                        showToast('Envie um arquivo no formato PDF.');
+                        return;
+                    }
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    try {
+                        const result = await apiRequest('/upload_pdf', {
+                            method: 'POST',
+                            body: formData,
+                        });
+                        pdfFile.value = '';
+                        selectedPdfName.textContent = '';
+                        selectedPdfName.classList.add('hidden');
+                        showToast(result.message || 'PDF enviado com sucesso para a bronze.', 'success');
+                    } catch (error) {
+                        showToast(error.message, 'error');
+                    }
+                });
+            }
+
+            const requestButtons = [
+                document.getElementById('request-report'),
+                document.getElementById('request-report-dashboard'),
+            ].filter(Boolean);
+            requestButtons.forEach((button) => button.addEventListener('click', requestReport));
+
+            const reportsSearch = document.getElementById('reports-search');
+            const reportsDateFilter = document.getElementById('reports-date-filter');
+            if (reportsSearch) reportsSearch.addEventListener('input', () => {
+                currentReportsPage = 1;
+                applyReportFilters();
+            });
+            if (reportsDateFilter) reportsDateFilter.addEventListener('change', () => {
+                currentReportsPage = 1;
+                applyReportFilters();
+            });
+
+            const reportsPagination = document.getElementById('reports-pagination');
+            if (reportsPagination) reportsPagination.addEventListener('click', (event) => {
+                const button = event.target.closest('[data-reports-page]');
+                if (!button || button.disabled) return;
+                currentReportsPage = Number(button.dataset.reportsPage);
+                applyReportFilters();
+            });
+
+            const grafanaButton = document.querySelector('[data-action="open-grafana"]');
+            if (grafanaButton) {
+                grafanaButton.addEventListener('click', async () => {
+                    if (!isAdmin()) {
+                        showToast('Acesso ao Grafana disponível apenas para o administrador.');
+                        return;
+                    }
+                    const grafanaWindow = window.open(`http://${window.location.hostname}:3000`, '_blank');
+                    let host = window.location.hostname;
+                    try {
+                        const result = await apiRequest('/infra/ec2-ipv4');
+                        host = result.ipv4 || host;
+                    } catch (error) {
+                        showToast('Infraestrutura indisponível; tentando o Grafana no host atual.');
+                    }
+                    const grafanaUrl = `http://${host}:3000`;
+                    if (grafanaWindow && host !== window.location.hostname) grafanaWindow.location = grafanaUrl;
+                    else if (!grafanaWindow) window.location.href = grafanaUrl;
+                });
+            }
+
+            const assistantInput = document.getElementById('assistant-input');
+            const assistantSend = document.getElementById('assistant-send');
+            const assistantClear = document.getElementById('assistant-clear');
+            const assistantShortcut = shellContainer.querySelector('[data-nav="assistente-crm"]');
+            const chatForm = document.getElementById('crm-chat-form');
+            const chatInput = document.getElementById('crm-chat-input');
+            const chatMessages = document.getElementById('crm-chat-messages');
+            const chatList = document.getElementById('crm-chat-list');
+            const newChatButton = document.getElementById('crm-new-chat');
+            const deleteChatButton = document.getElementById('crm-delete-chat');
+            const chatsStorageKey = 'stitch-crm-chats';
+            const selectedChatStorageKey = 'stitch-crm-selected-chat';
+            const chatEndpoint = 'http://32.199.62.181/webhook/rag-agent';
+
+            let chats = JSON.parse(localStorage.getItem(chatsStorageKey) || '[]');
+            let selectedChatId = localStorage.getItem(selectedChatStorageKey);
+
+            function saveChats() {
+                localStorage.setItem(chatsStorageKey, JSON.stringify(chats));
+                if (selectedChatId) localStorage.setItem(selectedChatStorageKey, selectedChatId);
+            }
+
+            function createChat() {
+                const chat = {
+                    id: `stitch-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+                    title: 'Novo chat',
+                    messages: [{ text: 'Olá! Como posso ajudar?', type: 'bot' }],
+                };
+                chats.unshift(chat);
+                selectedChatId = chat.id;
+                saveChats();
+                renderChatList();
+                renderSelectedChat();
+            }
+
+            function getSelectedChat() {
+                return chats.find((chat) => chat.id === selectedChatId);
+            }
+
+            function renderChatList() {
+                if (!chatList) return;
+                chatList.innerHTML = '';
+                chats.forEach((chat) => {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.textContent = chat.title;
+                    button.className = `w-full text-left px-3 py-2 rounded-md text-body-md transition-colors ${chat.id === selectedChatId ? 'bg-primary-container text-white' : 'bg-surface-card text-on-surface hover:bg-surface-container'}`;
+                    button.addEventListener('click', () => {
+                        selectedChatId = chat.id;
+                        saveChats();
+                        renderChatList();
+                        renderSelectedChat();
+                    });
+                    chatList.appendChild(button);
+                });
+            }
+
+            function renderSelectedChat() {
+                const chat = getSelectedChat();
+                if (!chatMessages || !chat) return;
+                chatMessages.innerHTML = '';
+                chat.messages.forEach((message) => addChatMessage(message.text, message.type, false));
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function addChatMessage(text, type, persist = true) {
+                if (!chatMessages) return;
+                const message = document.createElement('div');
+                message.className = `flex items-start gap-2 ${type === 'user' ? 'self-end justify-end' : 'self-start justify-start'}`;
+                const bubble = document.createElement('div');
+                bubble.className = type === 'user'
+                    ? 'relative max-w-[80%] rounded-lg bg-primary-container px-4 py-3 text-body-md text-white'
+                    : 'relative max-w-[80%] rounded-lg border border-border-subtle bg-surface-card px-4 py-3 text-body-md text-on-surface-variant';
+                bubble.textContent = text;
+                const delBtn = document.createElement('button');
+                delBtn.type = 'button';
+                delBtn.className = 'ml-2 text-[12px] text-outline hover:text-error-red p-1';
+                delBtn.setAttribute('aria-label', 'Excluir mensagem');
+                delBtn.innerHTML = '<span class="material-symbols-outlined">close</span>';
+                delBtn.addEventListener('click', () => {
+                    message.remove();
+                    const chat = getSelectedChat();
+                    if (chat) {
+                        const idx = chat.messages.findIndex((m) => m.text === text && m.type === type);
+                        if (idx >= 0) {
+                            chat.messages.splice(idx, 1);
+                            saveChats();
+                            renderChatList();
+                        }
+                    }
+                });
+                message.appendChild(bubble);
+                message.appendChild(delBtn);
+                chatMessages.appendChild(message);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                if (persist) {
+                    const chat = getSelectedChat();
+                    if (chat) {
+                        chat.messages.push({ text, type });
+                        if (type === 'user' && chat.title === 'Novo chat') chat.title = text.slice(0, 28);
+                        saveChats();
+                        renderChatList();
+                    }
+                }
+            }
+
+            function deleteSelectedChat() {
+                if (!selectedChatId) return;
+                chats = chats.filter((chat) => chat.id !== selectedChatId);
+                if (!chats.length) {
+                    createChat();
+                    return;
+                }
+                selectedChatId = chats[0].id;
+                saveChats();
+                renderChatList();
+                renderSelectedChat();
+            }
+
+            function getChatSessionId() {
+                return selectedChatId;
+            }
+
+            if (!chats.length || !chats.some((chat) => chat.id === selectedChatId)) createChat();
+            else {
+                renderChatList();
+                renderSelectedChat();
+            }
+
+            async function sendChatMessage(question) {
+                addChatMessage(question, 'user');
+                addChatMessage('Digitando...', 'bot', false);
+                const typingMessage = chatMessages?.lastElementChild;
+
+                try {
+                    const response = await fetch(chatEndpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            action: 'query',
+                            question,
+                            session_id: getChatSessionId(),
+                        }),
+                    });
+                    const contentType = response.headers.get('content-type') || '';
+                    const data = contentType.includes('application/json')
+                        ? await response.json()
+                        : await response.text();
+                    if (typingMessage) typingMessage.remove();
+                    if (!response.ok) {
+                        addChatMessage('Não foi possível responder agora.', 'bot');
+                        return;
+                    }
+                    const answer = typeof data === 'string'
+                        ? data
+                        : (data.answer || data.response || data.output || JSON.stringify(data));
+                    addChatMessage(answer, 'bot');
+                } catch (error) {
+                    console.error('Erro ao chamar o Assistente CRM:', error);
+                    if (typingMessage) typingMessage.remove();
+                    addChatMessage('Não foi possível conectar ao Assistente CRM.', 'bot');
+                }
+            }
+
+            if (assistantShortcut) {
+                assistantShortcut.addEventListener('click', () => showScreen('assistente-crm'));
+            }
+
+            if (assistantSend) {
+                assistantSend.addEventListener('click', (e) => {
+                    // prevent default navigation
+                    e.preventDefault?.();
+                    const text = assistantInput?.value.trim();
+                    // open assistant panel (in-app) instead of navigating away
+                    showScreen('assistente-crm');
+                    setTimeout(() => {
+                        if (text) {
+                            const fullInput = document.getElementById('crm-chat-input');
+                            if (fullInput) {
+                                fullInput.value = text;
+                                // trigger form submit handler directly to avoid full page navigation
+                                const form = document.getElementById('crm-chat-form');
+                                if (form) {
+                                    const ev = new Event('submit', { cancelable: true });
+                                    form.dispatchEvent(ev);
+                                }
+                            }
+                            assistantInput.value = '';
+                        }
+                    }, 120);
+                });
+            }
+            if (assistantClear) {
+                assistantClear.addEventListener('click', () => {
+                    if (assistantInput) assistantInput.value = '';
+                });
+            }
+
+            if (assistantInput) {
+                assistantInput.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        showScreen('assistente-crm');
+                    }
+                });
+            }
+
+            if (newChatButton) {
+                newChatButton.addEventListener('click', createChat);
+            }
+
+            if (deleteChatButton) {
+                deleteChatButton.addEventListener('click', deleteSelectedChat);
+            }
+
+            if (chatForm && chatInput) {
+                chatForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    const question = chatInput.value.trim();
+                    if (!question) return;
+                    chatInput.value = '';
+                    sendChatMessage(question);
+                });
+            }
+
+            const fullPeriodRadios = Array.from(document.querySelectorAll('input[name="full-period"]'));
+            const startDateInput = document.getElementById('report-start-date');
+            const endDateInput = document.getElementById('report-end-date');
+
+            function updateDateInputs() {
+                if (!startDateInput || !endDateInput || !fullPeriodRadios.length) return;
+                const selected = fullPeriodRadios.find((radio) => radio.checked);
+                const disableDates = selected && selected.value === 'sim';
+                [startDateInput, endDateInput].forEach((input) => {
+                    input.disabled = disableDates;
+                    input.classList.toggle('opacity-60', disableDates);
+                    input.classList.toggle('cursor-not-allowed', disableDates);
+                    if (disableDates) {
+                        input.value = '';
+                    }
+                });
+            }
+
+            if (fullPeriodRadios.length) {
+                fullPeriodRadios.forEach((radio) => {
+                    radio.addEventListener('change', updateDateInputs);
+                });
+                updateDateInputs();
+            }
+
+            setupLeadMasks();
+
+        }
+
+        document.getElementById('login-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const username = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value;
+            try {
+                const result = await apiRequest('/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password }),
+                });
+                appState.user = result.user;
+                resetNotifications();
+                localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(result.user));
+                injectShell();
+                applyPermissions();
+                showScreen('dashboard');
+                showToast(`Login realizado. Área: ${result.user.area}.`);
+                if (!isAdmin()) loadReports();
+            } catch (error) {
+                showToast(error.message || 'Usuário ou senha inválidos.');
+            }
+        });
+
+        const storedUser = getStoredUser();
+        if (storedUser) {
+            appState.user = storedUser;
+            injectShell();
+            showScreen('dashboard');
+            if (!isAdmin()) loadReports();
+        }
+    </script>
+</body>
+</html>

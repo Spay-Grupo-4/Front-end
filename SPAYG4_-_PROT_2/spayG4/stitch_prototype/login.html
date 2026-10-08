@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Acesso ao Sistema - LeadPro CRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "on-surface": "#191c1d",
+                        "primary-container": "#2563eb",
+                        "error-red": "#EF4444",
+                        "surface-container-highest": "#e1e3e4",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "on-surface-variant": "#434655",
+                        "tertiary-container": "#5e6e85",
+                        "outline": "#737686",
+                        "secondary": "#545f73",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-primary-fixed": "#00174b",
+                        "tertiary-fixed": "#d3e4fe",
+                        "on-secondary-container": "#586377",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "surface-container-low": "#f3f4f5",
+                        "secondary-container": "#d5e0f8",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-container": "#e9f0ff",
+                        "on-background": "#191c1d",
+                        "warning-amber": "#F59E0B",
+                        "secondary-fixed": "#d8e3fb",
+                        "on-secondary": "#ffffff",
+                        "border-subtle": "#E2E8F0",
+                        "surface-container-high": "#e7e8e9",
+                        "on-secondary-fixed": "#111c2d",
+                        "inverse-primary": "#b4c5ff",
+                        "primary": "#004ac6",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2e3132",
+                        "tertiary": "#46566c",
+                        "background": "#f8f9fa",
+                        "surface-tint": "#0053db",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#e1e3e4",
+                        "surface-bright": "#f8f9fa",
+                        "outline-variant": "#c3c6d7",
+                        "success-green": "#10B981",
+                        "surface-dim": "#d9dadb",
+                        "on-primary-container": "#eeefff",
+                        "error": "#ba1a1a",
+                        "surface-container": "#edeeef",
+                        "surface-card": "#FFFFFF",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "surface": "#f8f9fa",
+                        "on-tertiary-fixed": "#0b1c30"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "margin-mobile": "16px",
+                        "stack-lg": "24px",
+                        "margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .input-glow:focus {
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen flex items-center justify-center p-4">
+<!-- Login Container -->
+<main class="w-full max-w-md">
+<!-- Glassmorphism Card -->
+<div class="glass-card rounded-xl shadow-[0px_10px_40px_-10px_rgba(0,0,0,0.1)] border border-border-subtle p-8 md:p-10 w-full relative overflow-hidden">
+<!-- Subtle decorative element -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-primary-container rounded-full mix-blend-multiply filter blur-3xl opacity-20 pointer-events-none"></div>
+<div class="absolute -bottom-10 -left-10 w-32 h-32 bg-tertiary-container rounded-full mix-blend-multiply filter blur-3xl opacity-20 pointer-events-none"></div>
+<div class="relative z-10 flex flex-col items-center text-center mb-8">
+<!-- Branding/Icon (Optional but adds premium feel) -->
+<div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-lg flex items-center justify-center mb-6 shadow-sm">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">
+                        hub
+                    </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">
+                    Acesso ao Sistema
+                </h1>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Entre com usuário e senha
+                </p>
+</div>
+<!-- Login Form -->
+<form action="#" class="relative z-10 space-y-6" method="POST">
+<!-- Username Input -->
+<div class="space-y-2 text-left">
+<label class="block font-label-md text-label-md text-on-surface" for="username">
+                        Usuário
+                    </label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-outline">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</div>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border border-border-subtle rounded-lg font-body-md text-body-md text-on-surface placeholder-outline-variant focus:outline-none focus:border-primary focus:ring-0 input-glow transition-all duration-200" id="username" name="username" placeholder="Seu usuário" required="" type="text"/>
+</div>
+</div>
+<!-- Password Input -->
+<div class="space-y-2 text-left">
+<div class="flex justify-between items-center">
+<label class="block font-label-md text-label-md text-on-surface" for="password">
+                            Senha
+                        </label>
+</div>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-outline">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+</div>
+<input class="w-full pl-10 pr-10 py-3 bg-surface-container-lowest border border-border-subtle rounded-lg font-body-md text-body-md text-on-surface placeholder-outline-variant focus:outline-none focus:border-primary focus:ring-0 input-glow transition-all duration-200" id="password" name="password" placeholder="Sua senha" required="" type="password"/>
+<!-- Optional Toggle Password Visibility (Cosmetic for design) -->
+<button class="absolute inset-y-0 right-0 pr-3 flex items-center text-outline hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility_off</span>
+</button>
+</div>
+</div>
+<!-- Actions -->
+<div class="pt-4 flex flex-col space-y-4">
+<button class="w-full py-3 px-4 bg-[#2563EB] hover:bg-primary text-on-primary font-title-md text-title-md rounded-lg shadow-sm hover:shadow-md transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-2" type="submit">
+                        Entrar
+                        <span class="material-symbols-outlined text-[20px]">login</span>
+</button>
+<div class="flex items-center justify-center gap-4 text-outline font-label-md text-label-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:underline underline-offset-4 decoration-border-subtle" href="#">
+                            Esqueceu a senha?
+                        </a>
+<span>•</span>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:underline underline-offset-4 decoration-border-subtle" href="#">
+                            Sair
+                        </a>
+</div>
+</div>
+</form>
+<!-- Contextual Footer -->
+<div class="mt-8 pt-6 border-t border-border-subtle text-center relative z-10">
+<p class="font-label-sm text-label-sm text-outline flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[14px]">shield</span>
+                    Acesso seguro ao Executive Portal
+                 </p>
+</div>
+</div>
+</main>
+<!-- Optional: Add subtle background texture or ambient elements here if needed, but keeping it minimal as requested -->
+</body></html>
